@@ -17,26 +17,20 @@
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
         body {
-            background-color: var(--bg-color);
+            /* Твой фон fon.jpg */
+            background-color: #080808;
+            background-image: url('image/fon.jpg');
+            background-size: cover; /* Растягивает картинку на весь экран */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Чтобы фон не двигался при скролле */
+            
             color: var(--text-white);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center;
             padding: 40px 20px; position: relative; overflow-x: hidden;
         }
-
-        /* Звезды на фоне */
-        body::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none; z-index: -1;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 130px 80px, #fff, transparent);
-            background-size: 200px 200px;
-            animation: twinkle 5s infinite alternate;
-        }
-        @keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 1; } }
 
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 900px; z-index: 1; }
 
@@ -46,16 +40,11 @@
             66% { border-color: #39ff14; box-shadow: 0 0 30px rgba(57, 255, 20, 0.8); }
             100% { border-color: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
         }
-        @keyframes rgbImageGlow {
-            0% { filter: drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff); }
-            33% { filter: drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff2a2a); }
-            66% { filter: drop-shadow(0 0 20px #39ff14) drop-shadow(0 0 40px #39ff14); }
-            100% { filter: drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff); }
-        }
 
         .creator-block {
             display: flex; align-items: center; gap: 20px;
-            background: rgba(10, 10, 10, 0.7); padding: 10px 20px 10px 10px;
+            background: rgba(0, 0, 0, 0.85); /* Сделал фон полупрозрачным черным */
+            padding: 10px 20px 10px 10px;
             border: 1px solid #27272a; transition: 0.3s;
         }
         .creator-block:hover { border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
@@ -67,11 +56,8 @@
         .social-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
         .social-btn i { font-size: 18px; }
 
-        .logo-section { width: 100%; max-width: 600px; display: flex; justify-content: center; align-items: center; }
-        .logo-section img { max-width: 100%; height: auto; max-height: 80px; object-fit: contain; animation: rgbImageGlow 8s linear infinite; }
-
         .grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; max-width: 850px; }
-        .card { aspect-ratio: 1 / 1; border: 1px solid #fff; background-color: #080808; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; transition: all 0.3s ease; overflow: hidden; animation: rgbBorderGlow 8s linear infinite; }
+        .card { aspect-ratio: 1 / 1; border: 1px solid #fff; background-color: rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; transition: all 0.3s ease; overflow: hidden; animation: rgbBorderGlow 8s linear infinite; }
         .grid-cards .card:nth-child(2) { animation-delay: 2.6s; }
         .grid-cards .card:nth-child(3) { animation-delay: 5.2s; }
         .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
@@ -105,12 +91,9 @@
             </div>
         </div>
 
-        <!-- 2. Логотип -->
-        <div class="logo-section">
-            <img src="image/fon.jpg" alt="Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;span style=&quot;font-size:48px;font-weight:700;letter-spacing:5px;color:%23fff;&quot;&gt;BLACK HUB&lt;/span&gt;'">
-        </div>
+        <!-- Блок логотипа я убрал, так как он теперь у тебя на фоне fon.jpg! -->
 
-        <!-- 3. Три игры -->
+        <!-- 2. Три игры -->
         <div class="grid-cards">
             <a href="#" class="card">
                 <img src="image/dota.jpg" alt="Dota 2" onerror="this.style.display='none'">
