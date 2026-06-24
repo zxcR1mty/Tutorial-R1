@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Metal Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --bg-color: #080808; --text-white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #080808; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border: 1px solid #39ff14; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            padding: 40px 20px; position: relative; overflow-x: hidden;
+        }
+
+        /* Звезды на фоне */
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 130px 80px, #fff, transparent);
+            background-size: 200px 200px;
+            animation: twinkle 5s infinite alternate;
+        }
+        @keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .main-container { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 900px; z-index: 1; }
+
+        @keyframes rgbBorderGlow {
+            0% { border-color: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+            33% { border-color: #ff2a2a; box-shadow: 0 0 30px rgba(255, 42, 42, 0.8); }
+            66% { border-color: #39ff14; box-shadow: 0 0 30px rgba(57, 255, 20, 0.8); }
+            100% { border-color: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+        }
+        @keyframes rgbImageGlow {
+            0% { filter: drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff); }
+            33% { filter: drop-shadow(0 0 20px #ff2a2a) drop-shadow(0 0 40px #ff2a2a); }
+            66% { filter: drop-shadow(0 0 20px #39ff14) drop-shadow(0 0 40px #39ff14); }
+            100% { filter: drop-shadow(0 0 15px #ffffff) drop-shadow(0 0 30px #ffffff); }
+        }
+
+        .creator-block {
+            display: flex; align-items: center; gap: 20px;
+            background: rgba(10, 10, 10, 0.7); padding: 10px 20px 10px 10px;
+            border: 1px solid #27272a; transition: 0.3s;
+        }
+        .creator-block:hover { border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        .creator-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
+        .creator-info { display: flex; flex-direction: column; gap: 8px; }
+        .creator-info h3 { font-size: 18px; letter-spacing: 1px; }
+        .creator-links { display: flex; gap: 15px; }
+        .social-btn { display: flex; align-items: center; gap: 8px; color: #a1a1aa; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .social-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+        .social-btn i { font-size: 18px; }
+
+        .logo-section { width: 100%; max-width: 600px; display: flex; justify-content: center; align-items: center; }
+        .logo-section img { max-width: 100%; height: auto; max-height: 80px; object-fit: contain; animation: rgbImageGlow 8s linear infinite; }
+
+        .grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; max-width: 850px; }
+        .card { aspect-ratio: 1 / 1; border: 1px solid #fff; background-color: #080808; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; transition: all 0.3s ease; overflow: hidden; animation: rgbBorderGlow 8s linear infinite; }
+        .grid-cards .card:nth-child(2) { animation-delay: 2.6s; }
+        .grid-cards .card:nth-child(3) { animation-delay: 5.2s; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .card .placeholder-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 700; font-size: 28px; letter-spacing: 1px; text-transform: uppercase; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.5); z-index: 2; }
+        .card-title { position: absolute; bottom: 12%; font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.95); pointer-events: none; transition: color 0.3s ease; z-index: 2; }
+        .card:hover { transform: translateY(-5px) scale(1.02); z-index: 10; }
+        .card:hover img { transform: scale(1.05); }
+        .card:hover .card-title { color: #fff; text-shadow: 0 0 20px #fff; }
+
+        @media (max-width: 768px) { .grid-cards { grid-template-columns: 1fr; max-width: 320px; } .creator-block { flex-direction: column; text-align: center; padding: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <!-- 1. Блок создателя -->
+        <div class="creator-block">
+            <img src="image/R1mty.jpg" alt="Creator" class="creator-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect width=%2280%22 height=%2280%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22sans-serif%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ER1%3C/text%3E%3C/svg%3E'">
+            
+            <div class="creator-info">
+                <h3>CREATOR</h3>
+                <div class="creator-links">
+                    <a href="https://t.me/tiredR1mty" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-telegram"></i> @tiredR1mty
+                    </a>
+                    <a href="https://github.com/zxcR1mty" target="_blank" class="social-btn">
+                        <i class="fa-brands fa-github"></i> zxcR1mty
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Логотип -->
+        <div class="logo-section">
+            <img src="image/fon.jpg" alt="Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;span style=&quot;font-size:48px;font-weight:700;letter-spacing:5px;color:%23fff;&quot;&gt;BLACK HUB&lt;/span&gt;'">
+        </div>
+
+        <!-- 3. Три игры -->
+        <div class="grid-cards">
+            <a href="#" class="card">
+                <img src="image/dota.jpg" alt="Dota 2" onerror="this.style.display='none'">
+                <div class="placeholder-text">DOTA 2</div>
+                <div class="card-title">Dota 2</div>
+            </a>
+            <a href="#" class="card">
+                <img src="image/cyber.jpg" alt="Cyberpunk" onerror="this.style.display='none'">
+                <div class="placeholder-text">CYBERPUNK</div>
+                <div class="card-title">Cyberpunk</div>
+            </a>
+            <a href="#" class="card">
+                <img src="image/win.jpg" alt="Windows" onerror="this.style.display='none'">
+                <div class="placeholder-text">WINDOWS</div>
+                <div class="card-title">Windows</div>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
