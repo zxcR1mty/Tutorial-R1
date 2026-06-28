@@ -1,71 +1,99 @@
-* { margin:0; padding:0; box-sizing:border-box; }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R1MTY Optimization</title>
+    <link rel="icon" type="image/png" href="Site.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
 
-body {
-    background: #0a0a0a;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-}
+    <div class="background"></div>
 
-/* Header */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 30px 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+    <header>
+        <div class="logo">R1</div>
+        <nav>
+            <a href="#">ГЛАВНАЯ</a>
+            <a href="#">ГАЙДЫ</a>
+            <a href="#">ИНСТРУМЕНТЫ</a>
+            <a href="https://t.me/tiredR1mty">TELEGRAM</a>
+            <a href="https://github.com/zxcR1mty">GITHUB</a>
+        </nav>
+    </header>
 
-.logo {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: 6px;
-    color: #fff;
-}
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>R1MTY</h1>
+            <p class="subtitle">PERFORMANCE OPTIMIZATION</p>
+            <p class="tags">WINDOWS 11 • NVIDIA • GAMES • APPS</p>
+        </div>
+    </section>
 
-/* Hero с фоном fon.jpg */
-.hero {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
+    <section class="category">
+        <div class="section-title">ИГРЫ</div>
+        <div class="cards">
+            <a href="guides/dota2.html" class="card">
+                <img src="image/dota2.png" alt="">
+                <h3>DOTA 2</h3>
+                <p>Оптимизация FPS и настроек</p>
+            </a>
+            <a href="guides/valorant.html" class="card">
+                <img src="image/valorant.png" alt="">
+                <h3>VALORANT</h3>
+                <p>Настройки для минимального пинга</p>
+            </a>
+            <a href="guides/cyberpunk.html" class="card">
+                <img src="image/cyberpunk.png" alt="">
+                <h3>CYBERPUNK 2077</h3>
+                <p>Оптимизация графики</p>
+            </a>
+            <a href="#" class="card">
+                <img src="image/games.png" alt="">
+                <h3>ДРУГИЕ ИГРЫ</h3>
+                <p>Оптимизация и решения</p>
+            </a>
+        </div>
+    </section>
 
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background: url("fon.jpg") center/cover no-repeat;
-    filter: brightness(0.45) contrast(1.15);
-    z-index: 1;
-}
+    <section class="category">
+        <div class="section-title">ПРИЛОЖЕНИЯ</div>
+        <div class="cards">
+            <a href="guides/windows11.html" class="card">
+                <img src="image/windows.png" alt="">
+                <h3>WINDOWS 11</h3>
+                <p>Оптимизация системы</p>
+            </a>
+            <a href="guides/nvidia-panel.html" class="card">
+                <img src="image/nvidia.png" alt="">
+                <h3>NVIDIA PANEL</h3>
+                <p>Лучшие настройки</p>
+            </a>
+            <a href="guides/nvidia-inspector.html" class="card">
+                <img src="image/inspector.png" alt="">
+                <h3>PROFILE INSPECTOR</h3>
+                <p>Тонкая настройка</p>
+            </a>
+            <a href="guides/nvidia-app.html" class="card">
+                <img src="image/nvidiaapp.png" alt="">
+                <h3>NVIDIA APP</h3>
+                <p>Новые функции</p>
+            </a>
+            <a href="guides/afterburner.html" class="card">
+                <img src="image/afterburner.png" alt="">
+                <h3>MSI AFTERBURNER</h3>
+                <p>Мониторинг и разгон</p>
+            </a>
+        </div>
+    </section>
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
+    <footer>
+        <div class="footer-text">МАКСИМУМ FPS. МИНИМУМ ЛАГОВ. ПОЛНЫЙ КОНТРОЛЬ.</div>
+        <div class="copyright">© 2026 R1MTY Optimization</div>
+    </footer>
 
-h1 {
-    font-size: 110px;
-    font-weight: 900;
-    letter-spacing: 15px;
-    margin-bottom: 15px;
-    text-shadow: 0 0 50px rgba(255,255,255,0.7);
-}
-
-.subtitle {
-    font-size: 24px;
-    color: #ddd;
-    margin-bottom: 10px;
-}
-
-.tags {
-    font-size: 17px;
-    color: #00ff88;
-    letter-spacing: 8px;
-}
+    <script src="script.js"></script>
+</body>
+</html>
