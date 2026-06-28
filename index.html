@@ -3,154 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Metal Hub</title>
-    <!-- ЗАМЕНА ШРИФТОВ: Orbitron для заголовков, Inter для текста -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>R1 Tutorial - Nvidia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root { --bg-color: #080808; --text-white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #080808; }
         ::-webkit-scrollbar-thumb { background: #27272a; border: 1px solid #39ff14; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
         body {
             background-color: #080808;
             background-image: url('image/fon.jpg');
             background-size: cover; background-position: center;
-            background-repeat: no-repeat; background-attachment: fixed;
-            color: var(--text-white); 
-            /* Основной текст использует Inter */
+            background-attachment: fixed;
+            color: var(--text-white);
             font-family: 'Inter', sans-serif;
-            min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            padding: 40px 20px; position: relative; overflow-x: hidden;
-            align-content: center; 
+            padding: 30px 15px;
         }
 
-        .main-container { 
-            display: flex; flex-direction: column; align-items: center; 
-            gap: 40px; width: 100%; max-width: 800px; z-index: 1; 
-        }
+        .container { max-width: 700px; margin: 0 auto; }
+        .top-nav { display: flex; justify-content: flex-start; margin-bottom: 30px; }
+        .back-btn { display: flex; align-items: center; gap: 8px; color: #a1a1aa; text-decoration: none; font-size: 15px; font-weight: 600; transition: 0.3s; }
+        .back-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        @keyframes rgbBorderGlow {
-            0% { border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.2); }
-            33% { border-color: #ff2a2a; box-shadow: 0 0 25px rgba(255, 42, 42, 0.7), inset 0 0 15px rgba(255, 42, 42, 0.3); }
-            66% { border-color: #39ff14; box-shadow: 0 0 25px rgba(57, 255, 20, 0.7), inset 0 0 15px rgba(57, 255, 20, 0.3); }
-            100% { border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.2); }
-        }
+        .page-title { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #27272a; padding-bottom: 15px; }
+        .page-title h1 { font-family: 'Orbitron', sans-serif; font-size: 28px; letter-spacing: 2px; }
 
-        .glass-block {
-            background: rgba(10, 10, 10, 0.55);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .step-card {
+            background: rgba(15, 15, 15, 0.75);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-        }
-
-        /* Блок создателя */
-        .creator-block {
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            padding: 25px 35px 20px 35px; gap: 12px;
+            margin-bottom: 15px;
             border-radius: 2px;
-            animation: rgbBorderGlow 8s linear infinite;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .creator-block:hover { transform: translateY(-2px) scale(1.02); background: rgba(15, 15, 15, 0.7); }
-        
-        .creator-avatar { width: 95px; height: 95px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
-        .creator-info { display: flex; flex-direction: column; gap: 8px; }
-        .creator-info h3 { 
-            font-family: 'Orbitron', sans-serif; /* ЗАМЕНА ШРИФТА НА СТИЛЬНЫЙ */
-            font-size: 20px; letter-spacing: 3px; font-weight: 700; 
-        }
-        .creator-links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .social-btn { display: flex; align-items: center; gap: 6px; color: #a1a1aa; text-decoration: none; font-size: 13px; transition: 0.3s; }
-        .social-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
-        .social-btn i { font-size: 16px; }
+        .step-card:hover { border-color: rgba(255, 255, 255, 0.3); }
 
-        .grid-cards { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; 
-            margin-top: 150px; 
+        .step-header {
+            display: flex; align-items: center; gap: 20px;
+            padding: 20px; cursor: pointer; user-select: none;
         }
-        
-        .card { 
-            aspect-ratio: 1 / 1; 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            text-decoration: none; position: relative; overflow: hidden; 
-            border-radius: 2px;
-            animation: rgbBorderGlow 8s linear infinite;
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px; font-weight: 900;
+            color: #39ff14; opacity: 0.6; line-height: 1;
         }
-        .grid-cards .card:nth-child(2) { animation-delay: 2.6s; }
-        .grid-cards .card:nth-child(3) { animation-delay: 5.2s; }
-        
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-        
-        .card .placeholder-text { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            font-family: 'Orbitron', sans-serif; /* ЗАМЕНА ШРИФТА */
-            font-weight: 700; font-size: 26px; letter-spacing: 3px; text-transform: uppercase; 
-            color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 2; 
+        .step-title {
+            font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;
         }
-        .card-title { 
-            position: absolute; bottom: 12%; 
-            font-family: 'Orbitron', sans-serif; /* ЗАМЕНА ШРИФТА */
-            font-size: 18px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; 
-            color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.95); pointer-events: none; transition: color 0.3s ease; z-index: 2; 
+        .step-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease; color: #a1a1aa; font-size: 20px;
         }
-        
-        .card:hover { transform: translateY(-5px) scale(1.03); z-index: 10; background: rgba(20, 20, 20, 0.7); }
-        .card:hover img { transform: scale(1.08); }
-        .card:hover .card-title { color: #fff; text-shadow: 0 0 25px #fff; }
 
-        @media (max-width: 768px) { 
-            .grid-cards { grid-template-columns: 1fr; max-width: 280px; margin-top: 80px; } 
+        .step-body {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        .step-card.open .step-body {
+            max-height: 800px; padding: 0 20px 25px 20px;
+        }
+        .step-card.open .step-icon { transform: rotate(180deg); color: #39ff14; }
+        .step-card.open .step-number { opacity: 1; }
+
+        .step-desc { font-size: 18px; line-height: 1.5; margin-bottom: 15px; color: #e0e0e0; }
+        .step-desc b { color: #fff; }
+
+        .code-box {
+            background: #121212; padding: 15px;
+            border: 1px solid #333; border-left: 4px solid #39ff14;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+        }
+        .code-text { font-family: monospace; font-size: 16px; color: #ddd; word-break: break-all; }
+        .copy-btn { background: #39ff14; color: #000; border: none; padding: 6px 15px; font-weight: 700; border-radius: 2px; cursor: pointer; transition: 0.2s; }
+        .copy-btn:hover { background: #fff; }
+
+        @media (max-width: 600px) {
+            .step-number { font-size: 32px; }
+            .step-title { font-size: 16px; }
+            .step-desc { font-size: 16px; }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="top-nav">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
+        </div>
 
-    <div class="main-container">
-        
-        <!-- 1. Блок создателя -->
-        <div class="creator-block glass-block">
-            <img src="image/R1mty.jpg" alt="Creator" class="creator-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2295%22 height=%2295%22%3E%3Crect width=%2295%22 height=%2295%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22sans-serif%22 font-size=%2220%22 fill=%22white%22 text-anchor=%22middle%22 dy=%22.3em%22%3ER1%3C/text%3E%3C/svg%3E'">
-            
-            <div class="creator-info">
-                <h3>CREATOR</h3>
-                <div class="creator-links">
-                    <a href="https://t.me/tiredR1mty" target="_blank" class="social-btn">
-                        <i class="fa-brands fa-telegram"></i> @tiredR1mty
-                    </a>
-                    <a href="https://github.com/zxcR1mty" target="_blank" class="social-btn">
-                        <i class="fa-brands fa-github"></i> zxcR1mty
-                    </a>
+        <div class="page-title">
+            <i class="fas fa-microchip" style="color: #39ff14; font-size: 28px;"></i>
+            <h1>Nvidia Settings</h1>
+        </div>
+
+        <div class="step-card">
+            <div class="step-header" onclick="toggleStep(this)">
+                <div class="step-number">1</div>
+                <div class="step-title">Открываем Панель управления</div>
+                <i class="fas fa-chevron-down step-icon"></i>
+            </div>
+            <div class="step-body">
+                <div class="step-desc">
+                    <b>1.1</b> Нажми <b>правой кнопкой мыши</b> в любом пустом месте на рабочем столе.
+                </div>
+                <div class="step-desc">
+                    <b>1.2</b> Выбери <b>«Панель управления Nvidia»</b>.
                 </div>
             </div>
         </div>
 
-        <!-- 2. Три игры -->
-        <div class="grid-cards">
-            <a href="#" class="card glass-block">
-                <img src="image/dota.jpg" alt="Dota 2" onerror="this.style.display='none'">
-                <div class="placeholder-text">DOTA 2</div>
-                <div class="card-title">Dota 2</div>
-            </a>
-            <a href="#" class="card glass-block">
-                <img src="image/cyber.jpg" alt="Cyberpunk" onerror="this.style.display='none'">
-                <div class="placeholder-text">CYBERPUNK</div>
-                <div class="card-title">Cyberpunk</div>
-            </a>
-            <a href="#" class="card glass-block">
-                <img src="image/win.jpg" alt="Windows" onerror="this.style.display='none'">
-                <div class="placeholder-text">WINDOWS</div>
-                <div class="card-title">Windows</div>
-            </a>
+        <div class="step-card">
+            <div class="step-header" onclick="toggleStep(this)">
+                <div class="step-number">2</div>
+                <div class="step-title">Настройка глобальной производительности</div>
+                <i class="fas fa-chevron-down step-icon"></i>
+            </div>
+            <div class="step-body">
+                <div class="step-desc">
+                    <b>2.1</b> В левом меню выбери <b>«Управление параметрами 3D»</b> -> вкладка <b>«Глобальные параметры»</b>.
+                </div>
+                <div class="step-desc">
+                    Выбери следующие настройки для максимальной производительности:
+                </div>
+                <div class="step-desc">
+                    • <b>Режим управления электропитанием:</b> <b style="color:#39ff14;">Предпочитать максимальную производительность</b>.<br>
+                    • <b>Фильтрация текстур (качество):</b> <b style="color:#39ff14;">Высокопроизводительная</b>.<br>
+                    • <b>Сглаживание (FXAA):</b> <b style="color:#39ff14;">Выкл</b>.<br>
+                    • <b>Макс. частота кадров:</b> <b style="color:#39ff14;">Отключить</b> (если не нужны лимиты).
+                </div>
+            </div>
         </div>
 
+        <div class="step-card">
+            <div class="step-header" onclick="toggleStep(this)">
+                <div class="step-number">3</div>
+                <div class="step-title">Применить изменения</div>
+                <i class="fas fa-chevron-down step-icon"></i>
+            </div>
+            <div class="step-body">
+                <div class="step-desc">
+                    <b>3.1</b> Нажми кнопку <b>«Применить»</b> в правом нижнем углу Панели управления.
+                </div>
+                <div class="step-desc">
+                    <b>3.2</b> Перезагрузи компьютер или перезапусти игру, чтобы изменения вступили в силу.
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script>
+        function toggleStep(headerElement) {
+            const card = headerElement.closest('.step-card');
+            card.classList.toggle('open');
+        }
+
+        function copyCode(event) {
+            event.stopPropagation();
+            const text = event.target.parentElement.querySelector('.code-text').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const txt = btn.innerText;
+                btn.innerText = "ГОТОВО!";
+                btn.style.backgroundColor = "#fff";
+                setTimeout(() => { btn.innerText = txt; btn.style.backgroundColor = "#39ff14"; }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
