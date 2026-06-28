@@ -77,6 +77,30 @@ nav a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Аватарка */
+.main-avatar {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(0, 255, 120, 0.4);
+    box-shadow: 0 0 60px rgba(0, 255, 120, 0.6),
+                0 0 120px rgba(0, 255, 120, 0.3);
+    margin: 30px 0;
+    transition: all 0.6s ease;
+    animation: avatarPulse 4s infinite alternate;
+}
+
+.main-avatar:hover {
+    transform: scale(1.08);
+    border-color: #00ff88;
+}
+
+@keyframes avatarPulse {
+    from { box-shadow: 0 0 60px rgba(0, 255, 120, 0.5); }
+    to   { box-shadow: 0 0 90px rgba(0, 255, 120, 0.8); }
+}
+
 .badge {
     display: inline-block;
     background: rgba(0,255,120,0.12);
@@ -86,16 +110,6 @@ nav a:hover {
     font-size: 15px;
     border: 1px solid rgba(0,255,120,0.4);
     margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 110px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    letter-spacing: -4px;
-    background: linear-gradient(90deg, #ffffff, #00ff88);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 .subtitle { font-size: 26px; margin: 10px 0; color: #ddd; }
