@@ -6,30 +6,26 @@
     <title>R1 Tutorial</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root { --bg-color: #080808; --text-white: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #080808; }
         ::-webkit-scrollbar-thumb { background: #27272a; border: 1px solid #39ff14; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
         body {
             background-color: #080808;
-            /* ИСПРАВИЛ ПУТЬ (он лежит в корне, а не в папке image) */
-            background-image: url('fon.jpg');
+            background-image: url('fon.jpg'); /* Фон лежит в корне */
             background-size: cover; background-position: center;
-            background-repeat: no-repeat; background-attachment: fixed;
+            background-attachment: fixed;
             color: var(--text-white); font-family: 'Inter', sans-serif;
-            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px 20px; position: relative; overflow-x: hidden;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            padding: 40px 20px;
         }
 
         .main-container { 
             display: flex; flex-direction: column; align-items: center; 
-            gap: 35px; width: 100%; max-width: 900px; z-index: 1; 
+            gap: 25px; width: 100%; max-width: 850px; 
         }
 
         @keyframes rgbBorderGlow {
@@ -43,36 +39,28 @@
             background: rgba(10, 10, 10, 0.6);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+            transition: all 0.3s;
         }
 
-        /* Блок создателя */
         .creator-block {
             display: flex; flex-direction: column; align-items: center; text-align: center;
-            padding: 20px 35px 15px 35px; gap: 12px; border-radius: 2px;
-            width: 100%; max-width: 350px;
+            padding: 20px 35px; gap: 8px; border-radius: 2px;
             animation: rgbBorderGlow 8s linear infinite;
         }
-        .creator-block:hover { transform: translateY(-2px) scale(1.02); background: rgba(15, 15, 15, 0.7); }
-        
         .creator-avatar { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
         .creator-info h3 { font-family: 'Orbitron', sans-serif; font-size: 18px; letter-spacing: 3px; }
-        .creator-links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .creator-links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 5px; }
         .social-btn { display: flex; align-items: center; gap: 6px; color: #a1a1aa; text-decoration: none; font-size: 13px; transition: 0.3s; }
         .social-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-        .site-title-block { 
-            padding: 10px 25px; border-radius: 2px; 
-            animation: rgbBorderGlow 8s linear infinite; text-align: center;
-            width: 100%; max-width: 400px;
-        }
-        .site-title-block h1 { font-family: 'Orbitron', sans-serif; font-size: 36px; font-weight: 900; letter-spacing: 5px; text-shadow: 0 0 30px rgba(57, 255, 20, 0.4); margin: 0; }
+        .site-title-block { padding: 10px 30px; border-radius: 2px; animation: rgbBorderGlow 8s linear infinite; text-align: center; }
+        .site-title-block h1 { font-family: 'Orbitron', sans-serif; font-size: 32px; font-weight: 900; letter-spacing: 4px; text-shadow: 0 0 30px rgba(57, 255, 20, 0.4); margin: 0; }
 
-        /* Сетка 6 элементов */
+        /* Сетка: 3 в ряд на компе, 2 на планшете, 1 на телефоне */
         .grid-cards { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; width: 100%; max-width: 800px;
+            gap: 20px; width: 100%; 
             margin-top: 40px; 
         }
         
@@ -83,27 +71,16 @@
             text-decoration: none; position: relative; overflow: hidden; border-radius: 2px;
             animation: rgbBorderGlow 8s linear infinite;
         }
-        .grid-cards .card:nth-child(2) { animation-delay: 1.5s; }
-        .grid-cards .card:nth-child(3) { animation-delay: 3s; }
-        .grid-cards .card:nth-child(4) { animation-delay: 4.5s; }
-        .grid-cards .card:nth-child(5) { animation-delay: 6s; }
-        .grid-cards .card:nth-child(6) { animation-delay: 7.5s; }
+        .card:hover { transform: translateY(-4px) scale(1.03); z-index: 10; background: rgba(20, 20, 20, 0.7); }
         
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .card:hover img { transform: scale(1.06); }
         
-        .card .placeholder-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 2; }
-        .card-title { position: absolute; bottom: 12%; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.95); pointer-events: none; z-index: 2; }
-        
-        .card:hover { transform: translateY(-5px) scale(1.03); z-index: 10; background: rgba(20, 20, 20, 0.7); }
-        .card:hover img { transform: scale(1.08); }
+        .card .placeholder-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 2; }
+        .card-title { position: absolute; bottom: 12%; font-family: 'Orbitron', sans-serif; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.95); pointer-events: none; z-index: 2; }
 
-        @media (max-width: 992px) { 
-            .grid-cards { grid-template-columns: repeat(2, 1fr); max-width: 600px; } 
-        }
-        @media (max-width: 600px) { 
-            .site-title-block h1 { font-size: 26px; }
-            .grid-cards { grid-template-columns: 1fr; max-width: 280px; }
-        }
+        @media (max-width: 1000px) { .grid-cards { grid-template-columns: repeat(2, 1fr); max-width: 600px; } }
+        @media (max-width: 700px) { .grid-cards { grid-template-columns: 1fr; max-width: 300px; } }
     </style>
 </head>
 <body>
@@ -125,36 +102,32 @@
         </div>
 
         <div class="grid-cards">
-            <a href="dota.html" class="card glass-block">
+            <!-- ВНИМАНИЕ! Замени '#' ниже на нужные ссылки! -->
+            <a href="#" class="card glass-block">
                 <img src="image/dota.jpg" alt="Dota 2" onerror="this.style.display='none'">
                 <div class="placeholder-text">DOTA 2</div>
                 <div class="card-title">Dota 2</div>
             </a>
-            
             <a href="#" class="card glass-block">
                 <img src="image/valorant.jpg" alt="Valorant" onerror="this.style.display='none'">
                 <div class="placeholder-text">VALORANT</div>
                 <div class="card-title">Valorant</div>
             </a>
-            
             <a href="#" class="card glass-block">
                 <img src="image/cyber.jpg" alt="Cyberpunk" onerror="this.style.display='none'">
                 <div class="placeholder-text">CYBERPUNK</div>
                 <div class="card-title">Cyberpunk</div>
             </a>
-            
             <a href="#" class="card glass-block">
                 <img src="image/win.jpg" alt="Windows" onerror="this.style.display='none'">
                 <div class="placeholder-text">WINDOWS</div>
                 <div class="card-title">Windows</div>
             </a>
-            
             <a href="nvidia.html" class="card glass-block">
                 <img src="image/nvidia.jpg" alt="Nvidia" onerror="this.style.display='none'">
                 <div class="placeholder-text">NPANEL</div>
                 <div class="card-title">NPanel</div>
             </a>
-            
             <a href="#" class="card glass-block">
                 <img src="image/util.jpg" alt="Utilities" onerror="this.style.display='none'">
                 <div class="placeholder-text">UTILITIES</div>
