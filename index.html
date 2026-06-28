@@ -1,160 +1,61 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dota 2 Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --bg-color: #080808; --text-white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #080808; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border: 1px solid #39ff14; }
+    <title>R1MTY</title>
 
-        body {
-            background-color: #080808;
-            background-image: url('fon.jpg');
-            background-size: cover; background-position: center;
-            background-attachment: fixed;
-            color: var(--text-white); font-family: 'Inter', sans-serif;
-            padding: 30px 15px;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        .container { max-width: 700px; margin: 0 auto; }
-        .top-nav { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
-        .back-btn { color: #a1a1aa; text-decoration: none; font-size: 16px; font-weight: 600; transition: 0.3s; }
-        .back-btn:hover { color: #fff; text-shadow: 0 0 10px #fff; }
-
-        .page-title { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #27272a; padding-bottom: 15px; }
-        .page-title h1 { font-family: 'Orbitron', sans-serif; font-size: 28px; letter-spacing: 2px; }
-        .page-title i { font-size: 28px; color: #39ff14; }
-
-        .step-card { background: rgba(15, 15, 15, 0.75); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; border-radius: 2px; overflow: hidden; transition: 0.3s; }
-        .step-card:hover { border-color: rgba(255, 255, 255, 0.3); }
-
-        .step-header { display: flex; align-items: center; gap: 20px; padding: 20px; cursor: pointer; user-select: none; }
-        .step-number { font-family: 'Orbitron', sans-serif; font-size: 48px; font-weight: 900; color: #39ff14; opacity: 0.6; line-height: 1; }
-        .step-title { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px; }
-        .step-icon { margin-left: auto; transition: transform 0.3s ease; color: #a1a1aa; font-size: 20px; }
-
-        .step-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
-        .step-card.open .step-body { max-height: 800px; padding: 0 20px 25px 20px; }
-        .step-card.open .step-icon { transform: rotate(180deg); color: #39ff14; }
-        .step-card.open .step-number { opacity: 1; }
-
-        .step-desc { font-size: 18px; line-height: 1.5; margin-bottom: 15px; color: #e0e0e0; }
-        .step-desc b { color: #fff; }
-        .step-desc .highlight { color: #39ff14; font-weight: 700; }
-
-        .code-box { background: #121212; padding: 15px; border: 1px solid #333; border-left: 4px solid #39ff14; display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-        .code-text { font-family: monospace; font-size: 16px; color: #ddd; word-break: break-all; }
-        .copy-btn { background: #39ff14; color: #000; border: none; padding: 6px 15px; font-weight: 700; border-radius: 2px; cursor: pointer; transition: 0.2s; }
-        .copy-btn:hover { background: #fff; }
-
-        @media (max-width: 600px) { .step-title { font-size: 16px; } }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="container">
-        <div class="top-nav">
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> На главную</a>
-        </div>
 
-        <div class="page-title">
-            <i class="fas fa-gamepad"></i>
-            <h1>Гайд по Dota 2</h1>
-        </div>
+<div class="background"></div>
 
-        <!-- ШАГ 1 -->
-        <div class="step-card">
-            <div class="step-header" onclick="toggleStep(this)">
-                <div class="step-number">1</div>
-                <div class="step-title">Включить консоль</div>
-                <i class="fas fa-chevron-down step-icon"></i>
-            </div>
-            <div class="step-body">
-                <div class="step-desc">
-                    <b>1.1</b> Запусти Dota 2. Зайди в <b>Настройки</b> (шестеренка в главном меню).<br>
-                    <b>1.2</b> Перейди во вкладку <b>"Дополнительно"</b>.<br>
-                    <b>1.3</b> Найди пункт <b>"Включить консоль разработчика"</b> и поставь галочку.
-                </div>
-            </div>
-        </div>
+<header>
 
-        <!-- ШАГ 2 -->
-        <div class="step-card">
-            <div class="step-header" onclick="toggleStep(this)">
-                <div class="step-number">2</div>
-                <div class="step-title">Настройка FPS и камеры</div>
-                <i class="fas fa-chevron-down step-icon"></i>
-            </div>
-            <div class="step-body">
-                <div class="step-desc">
-                    Открой консоль (клавиша <b>~</b> или <b>Ё</b>), и вставь по очереди эти команды, чтобы поднять FPS и раздвинуть камеру:
-                </div>
-                <div class="code-box">
-                    <span class="code-text">dota_camera_distance 1800<br>fps_max 0</span>
-                    <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
-                </div>
-                <div class="step-desc" style="margin-top: 5px;">
-                    <span class="highlight">fps_max 0</span> убирает лимит FPS. <span class="highlight">dota_camera_distance</span> приближает/отдаляет камеру.
-                </div>
-            </div>
-        </div>
-
-        <!-- ШАГ 3 -->
-        <div class="step-card">
-            <div class="step-header" onclick="toggleStep(this)">
-                <div class="step-number">3</div>
-                <div class="step-title">Создание autoexec.cfg</div>
-                <i class="fas fa-chevron-down step-icon"></i>
-            </div>
-            <div class="step-body">
-                <div class="step-desc">
-                    Чтобы настройки не сбрасывались после перезапуска игры, нужно создать файл <b>autoexec.cfg</b>.<br><br>
-                    <b>3.1</b> Зайди в папку с Dota 2. Обычно путь: <b>C:\Steam\steamapps\common\dota 2 beta\game\dota\cfg</b>.<br>
-                    <b>3.2</b> Создай там файл <b>autoexec.cfg</b> и вставь в него свои команды, чтобы они грузились автоматически.
-                </div>
-            </div>
-        </div>
-
-        <!-- ШАГ 4 -->
-        <div class="step-card">
-            <div class="step-header" onclick="toggleStep(this)">
-                <div class="step-number">4</div>
-                <div class="step-title">Бинд для быстрого пика</div>
-                <i class="fas fa-chevron-down step-icon"></i>
-            </div>
-            <div class="step-body">
-                <div class="step-desc">
-                    Введи эту команду в консоль, чтобы при нажатии кнопки <b>F1</b> сразу выбирался текущий герой (удобно на стадии пика).
-                </div>
-                <div class="code-box">
-                    <span class="code-text">bind "F1" "dota_hero_pick"</span>
-                    <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
-                </div>
-            </div>
-        </div>
+    <div class="logo">
+        R1MTY
     </div>
 
-    <script>
-        function toggleStep(headerElement) {
-            const card = headerElement.closest('.step-card');
-            card.classList.toggle('open');
-        }
-        function copyCode(event) {
-            event.stopPropagation();
-            const text = event.target.parentElement.querySelector('.code-text').innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
-                const txt = btn.innerText;
-                btn.innerText = "ГОТОВО!";
-                btn.style.backgroundColor = "#fff";
-                setTimeout(() => { btn.innerText = txt; btn.style.backgroundColor = "#39ff14"; }, 2000);
-            });
-        }
-    </script>
+    <nav>
+
+        <a href="#">Главная</a>
+        <a href="#">GitHub</a>
+        <a href="#">Telegram</a>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <img src="assets/avatar.png" class="avatar">
+
+    <h1>R1MTY</h1>
+
+    <p>
+        Windows Optimization • OSINT • Development
+    </p>
+
+    <div class="buttons">
+
+        <a class="btn" href="https://t.me/R1mty">
+            Telegram
+        </a>
+
+        <a class="btn github" href="https://github.com/zxcrimty">
+            GitHub
+        </a>
+
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+
 </body>
 </html>
