@@ -1,34 +1,634 @@
-<!DOCTYPE html>
+
+html_code = '''<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R1MTY Optimization</title>
-    <link rel="icon" type="image/png" href="Site.png">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <title>R1MTY — Performance Optimization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050505;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --border-color: #1a1a1a;
+            --border-hover: #2a2a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --accent: #c0c0c0;
+            --accent-glow: rgba(192, 192, 192, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 60px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-telegram {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-telegram:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-logo-img {
+            width: 320px;
+            max-width: 80vw;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.15));
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hero-tags .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+
+        .section-divider span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CARDS SECTION ===== */
+        .cards-section {
+            padding: 0 60px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 60px var(--accent-glow);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            border-color: var(--border-hover);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .card-icon svg,
+        .card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 11px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== FOOTER TAGLINE ===== */
+        .footer-tagline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 40px 20px;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .footer-tagline .star {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 28px;
+                letter-spacing: 12px;
+            }
+
+            .hero-subtitle {
+                font-size: 11px;
+                letter-spacing: 4px;
+            }
+
+            .cards-section {
+                padding: 0 24px 40px;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .card {
+                padding: 20px 14px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-tags {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.15s; }
+        .card:nth-child(4) { animation-delay: 0.2s; }
+        .card:nth-child(5) { animation-delay: 0.25s; }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">R1</div>
-        <nav>
-            <a href="#">ГЛАВНАЯ</a>
-            <a href="#">ГАЙДЫ</a>
-            <a href="#">ИНСТРУМЕНТЫ</a>
-            <a href="https://t.me/tiredR1mty">TELEGRAM</a>
-            <a href="https://github.com/zxcR1mty">GITHUB</a>
-        </nav>
-    </header>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-logo">R1MTY</div>
+        <ul class="nav-links">
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Гайды</a></li>
+            <li><a href="#">Инструменты</a></li>
+            <li><a href="#">Telegram</a></li>
+            <li><a href="#">GitHub</a></li>
+        </ul>
+        <a href="#" class="nav-telegram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </a>
+    </nav>
 
+    <!-- HERO -->
     <section class="hero">
-        <div class="hero-content">
-            <img src="R1mty.jpg" alt="R1MTY" class="main-avatar">
-            <p class="subtitle">PERFORMANCE OPTIMIZATION</p>
-            <p class="tags">WINDOWS 11 • NVIDIA • GAMES • APPS</p>
+        <img src="fon.jpg" alt="R1MTY Logo" class="hero-logo-img">
+        <h1 class="hero-title">R1MTY</h1>
+        <p class="hero-subtitle">Performance Optimization</p>
+        <div class="hero-tags">
+            <span>Windows 11</span>
+            <span class="dot"></span>
+            <span>NVIDIA</span>
+            <span class="dot"></span>
+            <span>Games</span>
+            <span class="dot"></span>
+            <span>Apps</span>
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <!-- GAMES SECTION -->
+    <div class="section-divider">
+        <span>Игры</span>
+    </div>
+
+    <section class="cards-section">
+        <div class="cards-grid">
+            <!-- Dota 2 -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <path d="M25 25 L75 75 M75 25 L25 75" stroke="#e74c3c" stroke-width="8" stroke-linecap="round"/>
+                        <circle cx="50" cy="50" r="15" fill="none" stroke="#e74c3c" stroke-width="4"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">DOTA 2</h3>
+                <p class="card-desc">Оптимизация FPS<br>и настройки</p>
+            </div>
+
+            <!-- Valorant -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <path d="M30 70 L50 25 L70 70 L50 55 Z" fill="#ff4655"/>
+                        <path d="M35 50 L50 20 L65 50" fill="none" stroke="#ff4655" stroke-width="3"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">VALORANT</h3>
+                <p class="card-desc">Настройки для<br>минимального пинга</p>
+            </div>
+
+            <!-- Cyberpunk -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <text x="50" y="45" text-anchor="middle" fill="#fcee0a" font-family="Arial" font-size="10" font-weight="bold">CYBER</text>
+                        <text x="50" y="58" text-anchor="middle" fill="#fcee0a" font-family="Arial" font-size="8" font-weight="bold">PUNK</text>
+                        <text x="50" y="68" text-anchor="middle" fill="#00f0ff" font-family="Arial" font-size="6">2077</text>
+                    </svg>
+                </div>
+                <h3 class="card-title">CYBERPUNK 2077</h3>
+                <p class="card-desc">Оптимизация графики<br>и производительности</p>
+            </div>
+
+            <!-- CS2 -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <g fill="none" stroke="#c0c0c0" stroke-width="2">
+                            <circle cx="35" cy="40" r="12"/>
+                            <line x1="43" y1="48" x2="55" y2="60"/>
+                            <line x1="55" y1="55" x2="70" y2="50"/>
+                            <line x1="70" y1="50" x2="75" y2="45"/>
+                        </g>
+                    </svg>
+                </div>
+                <h3 class="card-title">CS2</h3>
+                <p class="card-desc">Лучшие настройки<br>для FPS</p>
+            </div>
+
+            <!-- Minecraft -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <rect x="30" y="30" width="40" height="40" fill="#5d8c3a"/>
+                        <rect x="30" y="30" width="40" height="12" fill="#6ba845"/>
+                        <rect x="30" y="42" width="12" height="12" fill="#8b6f47"/>
+                        <rect x="42" y="42" width="16" height="12" fill="#8b6f47"/>
+                        <rect x="58" y="42" width="12" height="12" fill="#8b6f47"/>
+                        <rect x="30" y="54" width="12" height="16" fill="#8b6f47"/>
+                        <rect x="42" y="54" width="16" height="16" fill="#8b6f47"/>
+                        <rect x="58" y="54" width="12" height="16" fill="#8b6f47"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">MINECRAFT</h3>
+                <p class="card-desc">Оптимизация сборки<br>и модов</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPS SECTION -->
+    <div class="section-divider">
+        <span>Приложения</span>
+    </div>
+
+    <section class="cards-section">
+        <div class="cards-grid">
+            <!-- Windows 11 -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <path d="M25 30 L48 27 L48 48 L25 48 Z" fill="white"/>
+                        <path d="M52 27 L75 24 L75 48 L52 48 Z" fill="white"/>
+                        <path d="M25 52 L48 52 L48 73 L25 70 Z" fill="white"/>
+                        <path d="M52 52 L75 52 L75 76 L52 73 Z" fill="white"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">WINDOWS 11</h3>
+                <p class="card-desc">Оптимизация системы<br>и отключение лишнего</p>
+            </div>
+
+            <!-- NVIDIA Control Panel -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <path d="M30 35 Q50 20 70 35 Q75 50 65 65 Q50 75 35 65 Q25 50 30 35" fill="#76b900"/>
+                        <circle cx="50" cy="50" r="8" fill="#1a1a1a"/>
+                        <path d="M50 42 L50 58 M42 50 L58 50" stroke="#76b900" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">NVIDIA CONTROL PANEL</h3>
+                <p class="card-desc">Лучшие настройки<br>для игр</p>
+            </div>
+
+            <!-- NVIDIA Profile Inspector -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <circle cx="50" cy="45" r="18" fill="none" stroke="#76b900" stroke-width="3"/>
+                        <circle cx="50" cy="45" r="8" fill="#76b900"/>
+                        <line x1="50" y1="63" x2="50" y2="75" stroke="#76b900" stroke-width="3"/>
+                        <line x1="42" y1="75" x2="58" y2="75" stroke="#76b900" stroke-width="3"/>
+                        <circle cx="65" cy="30" r="6" fill="#76b900"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">NVIDIA PROFILE INSPECTOR</h3>
+                <p class="card-desc">Тонкая настройка<br>профилей</p>
+            </div>
+
+            <!-- NVIDIA App -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <path d="M30 30 L50 20 L70 30 L70 60 L50 70 L30 60 Z" fill="#76b900"/>
+                        <path d="M30 30 L50 40 L70 30" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+                        <path d="M50 40 L50 70" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">NVIDIA APP</h3>
+                <p class="card-desc">Оптимизация через<br>новое приложение</p>
+            </div>
+
+            <!-- MSI Afterburner -->
+            <div class="card">
+                <div class="card-icon">
+                    <svg viewBox="0 0 100 100" width="48" height="48">
+                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                        <circle cx="50" cy="50" r="25" fill="none" stroke="#c0c0c0" stroke-width="2"/>
+                        <path d="M50 30 L55 45 L70 45 L58 55 L63 70 L50 60 L37 70 L42 55 L30 45 L45 45 Z" fill="#c0c0c0"/>
+                        <circle cx="50" cy="50" r="5" fill="#1a1a1a"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">MSI AFTERBURNER</h3>
+                <p class="card-desc">Мониторинг, разгон<br>и настройки</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER TAGLINE -->
+    <div class="footer-tagline">
+        <span class="star">✦</span>
+        <span>Максимум FPS. Минимум лагов. Полный контроль.</span>
+        <span class="star">✦</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">R1MTY</div>
+        <div class="footer-copy">© 2024 R1MTY Optimization. Все права защищены.</div>
+        <div class="footer-socials">
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </a>
+            <a href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+            </a>
+        </div>
+    </footer>
+
 </body>
-</html>
+</html>'''
