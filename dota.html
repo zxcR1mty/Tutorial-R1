@@ -17,9 +17,10 @@
             --bg-card: #151515;
             --bg-card-hover: #1f1f1f;
             --border-color: #2a2a2a;
-            --border-hover: #e74c3c; /* КРАСНЫЙ */
+            --border-hover: #e74c3c;
             --text-primary: #f0f0f0;
             --text-secondary: #999999;
+            --text-muted: #555555;
             --accent: #e74c3c;
             --font-primary: 'Inter', sans-serif;
             --font-display: 'Orbitron', sans-serif;
@@ -96,7 +97,7 @@
         }
         .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ===== СПИСОК КАРТОЧЕК (АККОРДЕОН) ===== */
+        /* ===== ОБНОВЛЕННЫЙ СПИСОК (С НУМЕРАЦИЕЙ 01, 02, 03) ===== */
         .cards-list {
             display: flex;
             flex-direction: column;
@@ -116,57 +117,63 @@
         }
         .card:hover { border-color: var(--border-hover); }
 
+        /* Внутренняя структура: слева номер, справа текст */
         .card-header {
             display: flex;
             width: 100%;
-            flex-direction: row;
             padding: 0;
-            position: relative;
-            transition: all 0.3s ease;
         }
 
-        .card-img-container {
-            width: 220px;
-            min-width: 220px;
-            height: auto;
-            position: relative;
-            background: #111;
+        /* Левая колонка с цифрами */
+        .card-number-col {
+            flex: 0 0 160px; /* Жесткая ширина колонки */
+            min-width: 120px;
+            padding: 24px 10px 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            border-right: 1px solid var(--border-color);
         }
-        .card-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .card-number-small {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
         }
-        .card-img-container .fallback-icon {
-            font-size: 48px;
-            color: var(--accent);
-            opacity: 0.4;
+        .card-label-large {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1;
         }
 
-        .card-body {
+        /* Правая колонка с контентом */
+        .card-content-col {
             flex: 1;
             padding: 24px 24px 20px 24px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        .card-body .content h3 {
-            font-size: 18px;
+        .card-content-col h3 {
+            font-size: 20px;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 8px;
+            letter-spacing: 1px;
         }
-        .card-body .content p {
+        .card-content-col p {
             font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.5;
         }
 
+        /* Подвал карточки (статус и стрелка) */
         .card-footer {
             display: flex;
             justify-content: space-between;
@@ -239,17 +246,36 @@
             border-top-color: var(--border-color);
         }
 
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 900px) {
-            .card-header { flex-direction: column; }
-            .card-img-container { width: 100%; min-width: 100%; height: 160px; }
-            .header-title { order: -1; width: 100%; text-align: center; margin-bottom: 10px; }
             .page-header { flex-wrap: wrap; gap: 10px; justify-content: center; }
+            .header-title { order: -1; width: 100%; text-align: center; margin-bottom: 10px; }
             .section-hero { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .card-number-col {
+                flex: 0 0 100px; /* Уменьшаем колонку на планшете */
+            }
+            .card-label-large { font-size: 24px; }
         }
-        @media (max-width: 768px) {
+
+        @media (max-width: 700px) {
             body { padding: 20px; }
             .header-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; }
             .search-box input { width: 100px; }
+            
+            /* На телефоне колонка с цифрами переносится наверх */
+            .card-header { flex-direction: column; }
+            .card-number-col {
+                flex: auto;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px 15px 10px;
+                flex-direction: row;
+                gap: 12px;
+                justify-content: flex-start;
+            }
+            .card-number-small { font-size: 14px; margin: 0; }
+            .card-label-large { font-size: 20px; }
         }
     </style>
 </head>
@@ -278,17 +304,16 @@
 
     <div class="cards-list">
 
-        <!-- ===== КАРТОЧКА 1: Оптимизация игры (С ФОТО И ШУТКОЙ) ===== -->
+        <!-- ===== 01 GAME: Оптимизация игры ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
-                <div class="card-img-container">
-                    <img src="dota.jpg" alt="Optimization" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-sliders-h fallback-icon&quot;&gt;&lt;/i&gt;';">
+                <div class="card-number-col">
+                    <div class="card-number-small">01</div>
+                    <div class="card-label-large">GAME</div>
                 </div>
-                <div class="card-body">
-                    <div class="content">
-                        <h3>Оптимизация игры</h3>
-                        <p>Настройки графики, FPS и правильный баланс между красотой и производительностью.</p>
-                    </div>
+                <div class="card-content-col">
+                    <h3>Оптимизация игры</h3>
+                    <p>Настройки графики, FPS и правильный баланс между красотой и производительностью.</p>
                     <div class="card-footer">
                         <div class="status"><span class="dot"></span> Доступно</div>
                         <i class="fas fa-chevron-down action-icon"></i>
@@ -302,7 +327,6 @@
                         <br>Вот максимально человечный пресет, который не превратит твой экран в слайд-шоу, а врагов — в пиксели.
                     </p>
 
-                    <!-- Место для твоего скриншота -->
                     <div style="background: #0f0f0f; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; margin-bottom: 20px; text-align: center;">
                         <img src="dota_settings.jpg" alt="Настройки Dota 2" style="max-width: 100%; height: auto; border-radius: 4px;">
                         <div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">Идеальный баланс картинки и FPS для 90% игроков.</div>
@@ -316,25 +340,24 @@
                     </span>
                     <br><br>
                     <b>На всякий случай, команда для консоли:</b>
-                    <div class="code-box">
+                    <div class="code-box" style="background: #0e0e0e; border: 1px solid var(--border-color); padding: 15px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center;">
                         <span>fps_max 0</span>
-                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                        <button class="copy-btn" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; cursor: pointer; font-size: 11px; transition: 0.2s; text-transform: uppercase;" onclick="copyCode(event)">Копировать</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ===== КАРТОЧКА 2: Параметры запуска ===== -->
+        <!-- ===== 02 LAUNCH: Параметры запуска ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
-                <div class="card-img-container" style="background: #0a0a0a; display: flex; justify-content: center; align-items: center;">
-                    <div style="font-family: var(--font-display); font-size: 24px; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8);">Launch</div>
+                <div class="card-number-col">
+                    <div class="card-number-small">02</div>
+                    <div class="card-label-large">LAUNCH</div>
                 </div>
-                <div class="card-body">
-                    <div class="content">
-                        <h3>Параметры запуска</h3>
-                        <p>Оптимальные параметры запуска для Steam. Они автоматически подгружают твой `autoexec.cfg` при старте, включают консоль и отключают лишние заставки.</p>
-                    </div>
+                <div class="card-content-col">
+                    <h3>Параметры запуска</h3>
+                    <p>Оптимальные параметры запуска для Steam. Они автоматически подгружают твой `autoexec.cfg` при старте, включают консоль и отключают лишние заставки.</p>
                     <div class="card-footer">
                         <div class="status"><span class="dot"></span> Доступно</div>
                         <i class="fas fa-chevron-down action-icon"></i>
@@ -345,35 +368,31 @@
                 <div class="card-dropdown-content">
                     <b>Как добавить параметры запуска в Steam:</b><br>
                     Зайди в библиотеку Steam -> ПКМ по Dota 2 -> Свойства -> <b>"Параметры запуска"</b>.<br>
-                    Вставь туда эту строку (она сама подтянет твой конфиг и откроет консоль при старте):
-                    <div class="code-box">
-                        <span>
-                        +exec autoexec.cfg -language russian -novr -dx11 -nohltv -noaafonts -processheap -noborder -novid -console -map dota -prewarm
-                        </span>
-                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    Вставь туда эту строку:
+                    <div class="code-box" style="background: #0e0e0e; border: 1px solid var(--border-color); padding: 15px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center;">
+                        <span>+exec autoexec.cfg -language russian -novr -dx11 -nohltv -noaafonts -processheap -noborder -novid -console -map dota -prewarm</span>
+                        <button class="copy-btn" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; cursor: pointer; font-size: 11px; transition: 0.2s; text-transform: uppercase;" onclick="copyCode(event)">Копировать</button>
                     </div>
                     <div style="margin-top: 15px;">
-                        <b>Что делают ключевые команды:</b><br>
-                        • <span class="highlight">+exec autoexec.cfg</span> — сразу выполняет скачанный тобой файл при запуске игры.<br>
+                        <b>Ключевые команды:</b><br>
+                        • <span class="highlight">+exec autoexec.cfg</span> — выполняет твой файл при старте игры.<br>
                         • <span class="highlight">-console</span> — открывает консоль сразу при входе в игру.<br>
-                        • <span class="highlight">-noborder</span> — запускает игру в безрамочном окне (меньше задержек).<br>
-                        • <span class="highlight">-novid</span> и <span class="highlight">-nohltv</span> — отключают вступительные ролики и фоновую загрузку HLTV.
+                        • <span class="highlight">-noborder</span> — запускает игру в безрамочном окне (меньше задержек).
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ===== КАРТОЧКА 3: Настройка Autoexec ===== -->
+        <!-- ===== 03 CFG: Настройка Autoexec ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
-                <div class="card-img-container">
-                    <img src="dota.jpg" alt="Autoexec" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-file-code fallback-icon&quot;&gt;&lt;/i&gt;';">
+                <div class="card-number-col">
+                    <div class="card-number-small">03</div>
+                    <div class="card-label-large">CFG</div>
                 </div>
-                <div class="card-body">
-                    <div class="content">
-                        <h3>Настройка Autoexec</h3>
-                        <p>Создание и редактирование файла `autoexec.cfg` для автоматической загрузки биндов и консольных команд при каждом входе в игру.</p>
-                    </div>
+                <div class="card-content-col">
+                    <h3>Настройка Autoexec</h3>
+                    <p>Создание и редактирование файла `autoexec.cfg` для автоматической загрузки биндов и консольных команд при каждом входе в игру.</p>
                     <div class="card-footer">
                         <div class="status"><span class="dot"></span> Доступно</div>
                         <i class="fas fa-chevron-down action-icon"></i>
@@ -387,7 +406,7 @@
                     <span style="color: #888; font-size: 14px;">\dota 2 beta\game\dota\cfg</span><br><br>
                     
                     <b>2. Скачай готовый пресет:</b><br>
-                    Нажми на кнопку ниже, чтобы скачать готовый файл `autoexec.cfg` с полным набором команд для максимального FPS и оптимизации.
+                    Нажми на кнопку ниже, чтобы скачать готовый файл `autoexec.cfg` с полным набором команд.
                     <br>
                     <a href="autoexec.cfg" download class="download-btn">
                         <i class="fas fa-download"></i> Скачать autoexec.cfg
@@ -395,7 +414,7 @@
                     <br>
 
                     <b>3. Как заставить игру читать файл:</b><br>
-                    Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span> (но у нас в параметрах выше уже есть <span class="highlight">+exec autoexec.cfg</span>, это одно и то же).<br>
+                    Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span> (но у нас в параметрах выше уже есть <span class="highlight">+exec autoexec.cfg</span>).<br>
                     Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
                 </div>
             </div>
