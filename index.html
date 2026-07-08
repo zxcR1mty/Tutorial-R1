@@ -32,7 +32,8 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: url('fon.png');
+            /* ===== ФОН САЙТА (САМ ФОН) ===== */
+            background-image: url('pon.png');
             background-size: cover; background-position: center;
             background-attachment: fixed;
             padding-top: 30px;
@@ -79,9 +80,11 @@
             padding: 40px 20px 20px; text-align: center; position: relative;
         }
 
+        /* ===== ЛОГОТИП ПО ЦЕНТРУ (FON.PNG) ===== */
         .hero-logo-img {
             width: 320px; max-width: 80vw; margin-bottom: 20px;
             filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.15));
+            z-index: 2;
         }
 
         .hero-title {
@@ -258,6 +261,7 @@
 
     <!-- HERO -->
     <section class="hero">
+        <!-- ===== ЛОГОТИП ПО ЦЕНТРУ (ТЕПЕРЬ ЭТО FON.PNG) ===== -->
         <img src="fon.png" alt="R1 Logo" class="hero-logo-img">
         <h1 class="hero-title">R1</h1>
         <p class="hero-subtitle">Performance Optimization</p>
