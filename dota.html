@@ -209,7 +209,6 @@
         .card-dropdown-content b { color: var(--text-primary); }
         .card-dropdown-content .highlight { color: var(--accent); }
 
-        /* ===== КНОПКА СКАЧИВАНИЯ ===== */
         .download-btn {
             display: inline-flex;
             align-items: center;
@@ -279,7 +278,7 @@
 
     <div class="cards-list">
 
-        <!-- Карточка 1: Оптимизация игры -->
+        <!-- ===== КАРТОЧКА 1: Оптимизация игры (С ФОТО И ШУТКОЙ) ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
                 <div class="card-img-container">
@@ -288,7 +287,7 @@
                 <div class="card-body">
                     <div class="content">
                         <h3>Оптимизация игры</h3>
-                        <p>Текстовые гайды по правильной настройке графики, отключению теней, повышению FPS и снижению задержек.</p>
+                        <p>Настройки графики, FPS и правильный баланс между красотой и производительностью.</p>
                     </div>
                     <div class="card-footer">
                         <div class="status"><span class="dot"></span> Доступно</div>
@@ -298,18 +297,25 @@
             </div>
             <div class="card-dropdown">
                 <div class="card-dropdown-content">
-                    <b>1. Настройки графики внутри игры:</b><br>
-                    Зайди в настройки Dota 2 -> Видео. Поставь:
-                    <ul style="list-style: none; padding: 10px 0;">
-                        <li>• Разрешение: <span class="highlight">Твое родное (например, 1920x1080)</span></li>
-                        <li>• Качество теней: <span class="highlight">Низкое / Выкл</span></li>
-                        <li>• Качество текстур: <span class="highlight">Среднее</span></li>
-                        <li>• Сглаживание: <span class="highlight">FXAA</span> (или выкл)</li>
-                        <li>• Вертикальная синхронизация: <span class="highlight">Выкл</span></li>
-                        <li>• Лимит FPS: <span class="highlight">Игровой</span> или поставь <b>120/144</b>.</li>
-                    </ul>
-                    <b>2. Консольная команда для FPS:</b><br>
-                    Чтобы убрать лимит FPS совсем, открой консоль (`~`) и введи:
+                    <p style="margin-bottom: 15px;">
+                        <span class="highlight">Золотая середина:</span> Выкручивать всё на максимум — для слабых ПК, а ставить на минимум — жертвовать глазами. 
+                        <br>Вот максимально человечный пресет, который не превратит твой экран в слайд-шоу, а врагов — в пиксели.
+                    </p>
+
+                    <!-- Место для твоего скриншота -->
+                    <div style="background: #0f0f0f; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; margin-bottom: 20px; text-align: center;">
+                        <img src="dota_settings.jpg" alt="Настройки Dota 2" style="max-width: 100%; height: auto; border-radius: 4px;">
+                        <div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">Идеальный баланс картинки и FPS для 90% игроков.</div>
+                    </div>
+
+                    <b>Шутка от R1:</b><br>
+                    <span style="color: var(--text-secondary); font-style: italic;">
+                        "Если после всех этих манипуляций FPS не вырос — проверь, не забился ли кулер твоего компа пылью. 
+                        А если и там чисто, значит Dota 2 просто решила, что твой ПК пытается запустить Crysis 3. 
+                        Вбей <span class="highlight">fps_max 0</span> и надейся на чудо."
+                    </span>
+                    <br><br>
+                    <b>На всякий случай, команда для консоли:</b>
                     <div class="code-box">
                         <span>fps_max 0</span>
                         <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
@@ -318,7 +324,7 @@
             </div>
         </div>
 
-        <!-- Карточка 2: Параметры запуска -->
+        <!-- ===== КАРТОЧКА 2: Параметры запуска ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
                 <div class="card-img-container" style="background: #0a0a0a; display: flex; justify-content: center; align-items: center;">
@@ -327,7 +333,7 @@
                 <div class="card-body">
                     <div class="content">
                         <h3>Параметры запуска</h3>
-                        <p>Оптимальные параметры запуска для Steam. Узнай, как добавить `-novid`, `-high` и другие команды для ускорения загрузки.</p>
+                        <p>Оптимальные параметры запуска для Steam. Они автоматически подгружают твой `autoexec.cfg` при старте, включают консоль и отключают лишние заставки.</p>
                     </div>
                     <div class="card-footer">
                         <div class="status"><span class="dot"></span> Доступно</div>
@@ -339,23 +345,25 @@
                 <div class="card-dropdown-content">
                     <b>Как добавить параметры запуска в Steam:</b><br>
                     Зайди в библиотеку Steam -> ПКМ по Dota 2 -> Свойства -> <b>"Параметры запуска"</b>.<br>
-                    Вставь туда строку ниже:
+                    Вставь туда эту строку (она сама подтянет твой конфиг и откроет консоль при старте):
                     <div class="code-box">
-                        <span>-novid -high -fullscreen -noaafonts -noforcemaccel -noforcemparms -useforcedmparms -dx11</span>
+                        <span>
+                        +exec autoexec.cfg -language russian -novr -dx11 -nohltv -noaafonts -processheap -noborder -novid -console -map dota -prewarm
+                        </span>
                         <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
                     </div>
                     <div style="margin-top: 15px;">
-                        <b>Что делают эти команды:</b><br>
-                        • <span class="highlight">-novid</span> — пропускает вступительный ролик Valve при запуске.<br>
-                        • <span class="highlight">-high</span> — запускает игру с высоким приоритетом процессов.<br>
-                        • <span class="highlight">-dx11</span> — принудительно использует DirectX 11 (для стабильности).<br>
-                        • <span class="highlight">-noforcemaccel</span> — отключает ускорение мыши.
+                        <b>Что делают ключевые команды:</b><br>
+                        • <span class="highlight">+exec autoexec.cfg</span> — сразу выполняет скачанный тобой файл при запуске игры.<br>
+                        • <span class="highlight">-console</span> — открывает консоль сразу при входе в игру.<br>
+                        • <span class="highlight">-noborder</span> — запускает игру в безрамочном окне (меньше задержек).<br>
+                        • <span class="highlight">-novid</span> и <span class="highlight">-nohltv</span> — отключают вступительные ролики и фоновую загрузку HLTV.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Карточка 3: Настройка Autoexec (заменено на СКАЧИВАНИЕ) -->
+        <!-- ===== КАРТОЧКА 3: Настройка Autoexec ===== -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
                 <div class="card-img-container">
@@ -387,7 +395,7 @@
                     <br>
 
                     <b>3. Как заставить игру читать файл:</b><br>
-                    Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span><br>
+                    Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span> (но у нас в параметрах выше уже есть <span class="highlight">+exec autoexec.cfg</span>, это одно и то же).<br>
                     Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
                 </div>
             </div>
