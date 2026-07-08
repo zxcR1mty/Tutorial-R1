@@ -96,7 +96,7 @@
         }
         .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ===== ВЕРТИКАЛЬНЫЙ СПИСОК ===== */
+        /* ===== СПИСОК КАРТОЧЕК (АККОРДЕОН) ===== */
         .cards-list {
             display: flex;
             flex-direction: column;
@@ -106,24 +106,26 @@
 
         .card {
             display: flex;
-            width: 100%;
-            flex-direction: row;
+            flex-direction: column;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
         }
-        .card:hover {
-            border-color: var(--accent);
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15);
+        .card:hover { border-color: var(--border-hover); }
+
+        /* Шапка карточки (верхняя часть, которая видна всегда) */
+        .card-header {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            padding: 0;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        /* Левая часть с картинкой */
         .card-img-container {
             width: 220px;
             min-width: 220px;
@@ -146,7 +148,6 @@
             opacity: 0.4;
         }
 
-        /* Правая часть с текстом */
         .card-body {
             flex: 1;
             padding: 24px 24px 20px 24px;
@@ -187,14 +188,54 @@
         }
         .card-footer .action-icon {
             color: var(--text-secondary);
-            transition: 0.2s;
+            transition: 0.3s;
             font-size: 18px;
         }
-        .card:hover .card-footer .action-icon { color: var(--accent); }
+
+        /* Скрытый контент */
+        .card-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+            padding: 0 24px;
+            border-top: 1px solid transparent;
+        }
+
+        .card-dropdown-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-bottom: 20px;
+        }
+        .card-dropdown-content b { color: var(--text-primary); }
+        .card-dropdown-content .highlight { color: var(--accent); }
+
+        .code-box {
+            background: #0e0e0e; border: 1px solid var(--border-color);
+            padding: 15px; margin: 15px 0;
+            font-family: 'Inter', sans-serif; font-size: 14px; color: #ddd;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .code-box span { display: block; margin-bottom: 2px; }
+        .code-box .copy-btn {
+            background: transparent; border: 1px solid var(--border-color);
+            color: var(--text-secondary); padding: 4px 12px; cursor: pointer;
+            font-size: 11px; transition: 0.2s; text-transform: uppercase;
+        }
+        .code-box .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Когда карточка открыта */
+        .card.open { border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15); }
+        .card.open .card-footer .action-icon { transform: rotate(180deg); color: var(--accent); }
+        .card.open .card-dropdown {
+            max-height: 800px;
+            padding: 0 24px 10px 24px;
+            border-top-color: var(--border-color);
+        }
 
         /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 900px) {
-            .card { flex-direction: column; }
+            .card-header { flex-direction: column; }
             .card-img-container {
                 width: 100%;
                 min-width: 100%;
@@ -237,61 +278,158 @@
         <div class="filter-btn"><i class="fas fa-filter" style="margin-right: 6px;"></i>Фильтр</div>
     </div>
 
-    <!-- ВЕРТИКАЛЬНЫЙ СПИСОК (Только нужные темы) -->
+    <!-- СПИСОК АККОРДЕОНОВ -->
     <div class="cards-list">
 
-        <!-- Карточка 1: Оптимизация -->
-        <div class="card">
-            <div class="card-img-container">
-                <img src="dota.jpg" alt="Optimization" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-sliders-h fallback-icon&quot;&gt;&lt;/i&gt;';">
-            </div>
-            <div class="card-body">
-                <div class="content">
-                    <h3>Оптимизация игры</h3>
-                    <p>Текстовые гайды по правильной настройке графики, отключению теней, повышению FPS и снижению задержек.</p>
+        <!-- Карточка 1: Оптимизация игры -->
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="card-img-container">
+                    <img src="dota.jpg" alt="Optimization" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-sliders-h fallback-icon&quot;&gt;&lt;/i&gt;';">
                 </div>
-                <div class="card-footer">
-                    <div class="status"><span class="dot"></span> Доступно</div>
-                    <i class="fas fa-external-link-alt action-icon"></i>
+                <div class="card-body">
+                    <div class="content">
+                        <h3>Оптимизация игры</h3>
+                        <p>Текстовые гайды по правильной настройке графики, отключению теней, повышению FPS и снижению задержек.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="status"><span class="dot"></span> Доступно</div>
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <b>1. Настройки графики внутри игры:</b><br>
+                    Зайди в настройки Dota 2 -> Видео. Поставь:
+                    <ul style="list-style: none; padding: 10px 0;">
+                        <li>• Разрешение: <span class="highlight">Твое родное (например, 1920x1080)</span></li>
+                        <li>• Качество теней: <span class="highlight">Низкое / Выкл</span></li>
+                        <li>• Качество текстур: <span class="highlight">Среднее</span></li>
+                        <li>• Сглаживание: <span class="highlight">FXAA</span> (или выкл)</li>
+                        <li>• Вертикальная синхронизация: <span class="highlight">Выкл</span></li>
+                        <li>• Лимит FPS: <span class="highlight">Игровой</span> или поставь <b>120/144</b>.</li>
+                    </ul>
+                    <b>2. Консольная команда для FPS:</b><br>
+                    Чтобы убрать лимит FPS совсем, открой консоль (`~`) и введи:
+                    <div class="code-box">
+                        <span>fps_max 0</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Карточка 2: Параметры запуска -->
-        <div class="card">
-            <div class="card-img-container" style="background: #0a0a0a; display: flex; justify-content: center; align-items: center;">
-                <div style="font-family: var(--font-display); font-size: 24px; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8);">Launch</div>
-            </div>
-            <div class="card-body">
-                <div class="content">
-                    <h3>Параметры запуска</h3>
-                    <p>Оптимальные параметры запуска для Steam. Узнай, как добавить `-novid`, `-high` и другие команды для ускорения загрузки.</p>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="card-img-container" style="background: #0a0a0a; display: flex; justify-content: center; align-items: center;">
+                    <div style="font-family: var(--font-display); font-size: 24px; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8);">Launch</div>
                 </div>
-                <div class="card-footer">
-                    <div class="status"><span class="dot"></span> Доступно</div>
-                    <i class="fas fa-external-link-alt action-icon"></i>
+                <div class="card-body">
+                    <div class="content">
+                        <h3>Параметры запуска</h3>
+                        <p>Оптимальные параметры запуска для Steam. Узнай, как добавить `-novid`, `-high` и другие команды для ускорения загрузки.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="status"><span class="dot"></span> Доступно</div>
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <b>Как добавить параметры запуска в Steam:</b><br>
+                    Зайди в библиотеку Steam -> ПКМ по Dota 2 -> Свойства -> <b>"Параметры запуска"</b>.<br>
+                    Вставь туда строку ниже:
+                    <div class="code-box">
+                        <span>-novid -high -fullscreen -noaafonts -noforcemaccel -noforcemparms -useforcedmparms -dx11</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <b>Что делают эти команды:</b><br>
+                        • <span class="highlight">-novid</span> — пропускает вступительный ролик Valve при запуске.<br>
+                        • <span class="highlight">-high</span> — запускает игру с высоким приоритетом процессов.<br>
+                        • <span class="highlight">-dx11</span> — принудительно использует DirectX 11 (для стабильности).<br>
+                        • <span class="highlight">-noforcemaccel</span> — отключает ускорение мыши.
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Карточка 3: Autoexec -->
-        <div class="card">
-            <div class="card-img-container">
-                <img src="dota.jpg" alt="Autoexec" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-file-code fallback-icon&quot;&gt;&lt;/i&gt;';">
-            </div>
-            <div class="card-body">
-                <div class="content">
-                    <h3>Настройка Autoexec</h3>
-                    <p>Создание и редактирование файла `autoexec.cfg` для автоматической загрузки биндов и консольных команд при каждом входе в игру.</p>
+        <!-- Карточка 3: Настройка Autoexec -->
+        <div class="card" onclick="toggleCard(this)">
+            <div class="card-header">
+                <div class="card-img-container">
+                    <img src="dota.jpg" alt="Autoexec" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;i class=&quot;fas fa-file-code fallback-icon&quot;&gt;&lt;/i&gt;';">
                 </div>
-                <div class="card-footer">
-                    <div class="status"><span class="dot"></span> Доступно</div>
-                    <i class="fas fa-external-link-alt action-icon"></i>
+                <div class="card-body">
+                    <div class="content">
+                        <h3>Настройка Autoexec</h3>
+                        <p>Создание и редактирование файла `autoexec.cfg` для автоматической загрузки биндов и консольных команд при каждом входе в игру.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="status"><span class="dot"></span> Доступно</div>
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <b>1. Где находится папка cfg:</b><br>
+                    Открой папку с игрой по пути:<br>
+                    <span style="color: #888; font-size: 14px;">C:\Steam\steamapps\common\dota 2 beta\game\dota\cfg</span><br><br>
+                    <b>2. Создай файл autoexec.cfg:</b><br>
+                    Создай текстовый файл, назови его <b>autoexec.cfg</b> и вставь туда свои команды. 
+                    Например, чтобы автоматически раздвигать камеру и включать консоль:
+                    <div class="code-box">
+                        <span>dota_camera_distance 1800</span>
+                        <span>fps_max 0</span>
+                        <span>bind "F1" "dota_hero_pick"</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <b>3. Как заставить игру читать файл:</b><br>
+                        Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span><br>
+                        Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <script>
+        // Функция для открытия/закрытия аккордеона
+        function toggleCard(element) {
+            // Если кликнули по кнопке "Копировать", не закрываем карточку
+            if (event.target.classList.contains('copy-btn')) return;
+            
+            element.classList.toggle('open');
+        }
+
+        // Функция для копирования текста из блока
+        function copyCode(event) {
+            event.stopPropagation(); // Чтобы не закрывать карточку при клике на кнопку
+            
+            // Собираем текст из соседнего span
+            const codeBox = event.target.parentElement;
+            const codeSpan = codeBox.querySelector('span');
+            const textToCopy = codeSpan.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerText;
+                btn.innerText = "СКОПИРОВАНО!";
+                btn.style.borderColor = "#e74c3c";
+                btn.style.color = "#e74c3c";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.borderColor = "#2a2a2a";
+                    btn.style.color = "#999999";
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
