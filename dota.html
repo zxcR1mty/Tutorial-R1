@@ -209,19 +209,28 @@
         .card-dropdown-content b { color: var(--text-primary); }
         .card-dropdown-content .highlight { color: var(--accent); }
 
-        .code-box {
-            background: #0e0e0e; border: 1px solid var(--border-color);
-            padding: 15px; margin: 15px 0;
-            font-family: 'Inter', sans-serif; font-size: 14px; color: #ddd;
-            display: flex; justify-content: space-between; align-items: center;
+        /* ===== КНОПКА СКАЧИВАНИЯ ===== */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #1a1a1a;
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border: 1px solid var(--border-hover);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
-        .code-box span { display: block; margin-bottom: 2px; }
-        .code-box .copy-btn {
-            background: transparent; border: 1px solid var(--border-color);
-            color: var(--text-secondary); padding: 4px 12px; cursor: pointer;
-            font-size: 11px; transition: 0.2s; text-transform: uppercase;
+        .download-btn:hover {
+            background: var(--border-hover);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
-        .code-box .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         .card.open { border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15); }
         .card.open .card-footer .action-icon { transform: rotate(180deg); color: var(--accent); }
@@ -346,7 +355,7 @@
             </div>
         </div>
 
-        <!-- Карточка 3: Настройка Autoexec (с новыми командами и измененным путем) -->
+        <!-- Карточка 3: Настройка Autoexec (заменено на СКАЧИВАНИЕ) -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
                 <div class="card-img-container">
@@ -368,86 +377,15 @@
                     <b>1. Где находится папка cfg:</b><br>
                     Открой папку с игрой по пути (внутри папки Steam):<br>
                     <span style="color: #888; font-size: 14px;">\dota 2 beta\game\dota\cfg</span><br><br>
-                    <b>2. Скопируй этот готовый пресет и вставь его в файл `autoexec.cfg`:</b><br>
-                    Данный пресет оптимизирует FPS, убирает лишние эффекты и настраивает цвета.
-                    <div class="code-box">
-                        <span>
-                        fps_max 0<br>
-                        dota_unit_use_player_color 1;<br>
-                        dota_friendly_color 0 255 0;<br>
-                        dota_enemy_color 0 0 255;<br>
-                        dota_selection_groups true<br>
-                        violence_ablood false<br>
-                        violence_agibs false<br>
-                        violence_hblood false<br>
-                        violence_hgibs false<br>
-                        dota_portrait_animate 0<br>
-                        r_deferred_additive_pass 0<br>
-                        r_deferred_simple_light 0<br>
-                        r_ssao 0<br>
-                        r_dota_normal_maps 0<br>
-                        r_dota_allow_parallax_mapping 0<br>
-                        dota_ambient_creatures 0<br>
-                        dota_ambient_cloth 0<br>
-                        r_grass_quality 0<br>
-                        r_dota_fxaa 1<br>
-                        r_deferred_specular 0<br>
-                        r_deferred_specular_bloom 0<br>
-                        dota_cheap_water 1<br>
-                        r_deferred_height_fog 0<br>
-                        r_dashboard_render_quality 0<br>
-                        r_experimental_lag_limiter 0<br>
-                        r_dota_allow_wind_on_trees 0<br>
-                        r_dota_bloom_compute_shader 1<br>
-                        r_texturefilteringquality 0<br>
-                        cl_particle_fallback_base 4<br>
-                        cl_globallight_shadow_mode 0<br>
-                        panorama_allow_transitions 0<br>
-                        cl_particle_fallback_multiplier 4<br>
-                        cl_particle_sim_fallback_base_multiplier 5<br>
-                        cl_particle_sim_fallback_threshold_ms 2.5<br>
-                        cl_aggregate_particles 1<br>
-                        cl_retire_low_priority_lights 1<br>
-                        csm_viewmodel_shadows 0<br>
-                        dota_allow_clientside_particles 0<br>
-                        dota_disable_particle_lights 1<br>
-                        lb_shadow_texture_height_override 128<br>
-                        lb_shadow_texture_width_override 128<br>
-                        lb_dynamic_shadow_resolution_base 128<br>
-                        lb_dynamic_shadow_resolution_delay 3<br>
-                        r_dota_spotlight_shadows_resolution 128<br>
-                        r_character_decal_resolution 256<br>
-                        r_aoproxy_cull_dist 4<br>
-                        r_aoproxy_min_dist 3<br>
-                        r_dota_shadow_ambient_light 0<br>
-                        r_dota_local_light_compute 0<br>
-                        r_light_flickering_enabled 0<br>
-                        r_particle_max_detail_level 0<br>
-                        r_particle_max_texture_layers 2<br>
-                        r_particle_cables_cast_shadows 0<br>
-                        r_dota_allow_spotlight_shadows 0<br>
-                        r_dota_allow_desaturate_layers 0<br>
-                        r_dota_color_correction 0<br>
-                        r_dota_render_2d_skybox 0<br>
-                        r_draw_selected_ring 0<br>
-                        r_depth_of_field 0<br>
-                        sc_clutter_density_full_size 0.04<br>
-                        sc_shadow_depth_bias 64<br>
-                        engine_enable_frametime_warnings 0<br>
-                        dota_defer_panorama_on_sim_ticks 0<br>
-                        con_enable 1<br>
-                        dota_unit_fly_particle 0<br>
-                        dota_sf_hud_disable_fade 1<br>
-                        dota_building_destruction_effects 0<br>
-                        r_decal_cullsize 0<br>
-                        r_dynamiclighting 0<br>
-                        r_dota_disable_weather_particles 1<br>
-                        r_renderoverlayfragment 0<br>
-                        dota_hero_auto_graball 1<br>
-                        map_enable_portrait_worlds 1
-                        </span>
-                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
-                    </div>
+                    
+                    <b>2. Скачай готовый пресет:</b><br>
+                    Нажми на кнопку ниже, чтобы скачать готовый файл `autoexec.cfg` с полным набором команд для максимального FPS и оптимизации.
+                    <br>
+                    <a href="autoexec.cfg" download class="download-btn">
+                        <i class="fas fa-download"></i> Скачать autoexec.cfg
+                    </a>
+                    <br>
+
                     <b>3. Как заставить игру читать файл:</b><br>
                     Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span><br>
                     Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
