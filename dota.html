@@ -116,7 +116,6 @@
         }
         .card:hover { border-color: var(--border-hover); }
 
-        /* Шапка карточки (верхняя часть, которая видна всегда) */
         .card-header {
             display: flex;
             width: 100%;
@@ -224,7 +223,6 @@
         }
         .code-box .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* Когда карточка открыта */
         .card.open { border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15); }
         .card.open .card-footer .action-icon { transform: rotate(180deg); color: var(--accent); }
         .card.open .card-dropdown {
@@ -233,19 +231,13 @@
             border-top-color: var(--border-color);
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 900px) {
             .card-header { flex-direction: column; }
-            .card-img-container {
-                width: 100%;
-                min-width: 100%;
-                height: 160px;
-            }
+            .card-img-container { width: 100%; min-width: 100%; height: 160px; }
             .header-title { order: -1; width: 100%; text-align: center; margin-bottom: 10px; }
             .page-header { flex-wrap: wrap; gap: 10px; justify-content: center; }
             .section-hero { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
-
         @media (max-width: 768px) {
             body { padding: 20px; }
             .header-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; }
@@ -255,7 +247,6 @@
 </head>
 <body>
 
-    <!-- ШАПКА СТРАНИЦЫ -->
     <div class="page-header">
         <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Назад</a>
         <div class="header-title">R1 GUIDES</div>
@@ -269,7 +260,6 @@
         </div>
     </div>
 
-    <!-- ЗАГОЛОВОК СЕКЦИИ -->
     <div class="section-hero">
         <div>
             <h1>Оптимизация</h1>
@@ -278,7 +268,6 @@
         <div class="filter-btn"><i class="fas fa-filter" style="margin-right: 6px;"></i>Фильтр</div>
     </div>
 
-    <!-- СПИСОК АККОРДЕОНОВ -->
     <div class="cards-list">
 
         <!-- Карточка 1: Оптимизация игры -->
@@ -357,7 +346,7 @@
             </div>
         </div>
 
-        <!-- Карточка 3: Настройка Autoexec -->
+        <!-- Карточка 3: Настройка Autoexec (с новыми командами и измененным путем) -->
         <div class="card" onclick="toggleCard(event, this)">
             <div class="card-header">
                 <div class="card-img-container">
@@ -377,22 +366,91 @@
             <div class="card-dropdown">
                 <div class="card-dropdown-content">
                     <b>1. Где находится папка cfg:</b><br>
-                    Открой папку с игрой по пути:<br>
-                    <span style="color: #888; font-size: 14px;">C:\Steam\steamapps\common\dota 2 beta\game\dota\cfg</span><br><br>
-                    <b>2. Создай файл autoexec.cfg:</b><br>
-                    Создай текстовый файл, назови его <b>autoexec.cfg</b> и вставь туда свои команды. 
-                    Например, чтобы автоматически раздвигать камеру и включать консоль:
+                    Открой папку с игрой по пути (внутри папки Steam):<br>
+                    <span style="color: #888; font-size: 14px;">\dota 2 beta\game\dota\cfg</span><br><br>
+                    <b>2. Скопируй этот готовый пресет и вставь его в файл `autoexec.cfg`:</b><br>
+                    Данный пресет оптимизирует FPS, убирает лишние эффекты и настраивает цвета.
                     <div class="code-box">
-                        <span>dota_camera_distance 1800</span>
-                        <span>fps_max 0</span>
-                        <span>bind "F1" "dota_hero_pick"</span>
+                        <span>
+                        fps_max 0<br>
+                        dota_unit_use_player_color 1;<br>
+                        dota_friendly_color 0 255 0;<br>
+                        dota_enemy_color 0 0 255;<br>
+                        dota_selection_groups true<br>
+                        violence_ablood false<br>
+                        violence_agibs false<br>
+                        violence_hblood false<br>
+                        violence_hgibs false<br>
+                        dota_portrait_animate 0<br>
+                        r_deferred_additive_pass 0<br>
+                        r_deferred_simple_light 0<br>
+                        r_ssao 0<br>
+                        r_dota_normal_maps 0<br>
+                        r_dota_allow_parallax_mapping 0<br>
+                        dota_ambient_creatures 0<br>
+                        dota_ambient_cloth 0<br>
+                        r_grass_quality 0<br>
+                        r_dota_fxaa 1<br>
+                        r_deferred_specular 0<br>
+                        r_deferred_specular_bloom 0<br>
+                        dota_cheap_water 1<br>
+                        r_deferred_height_fog 0<br>
+                        r_dashboard_render_quality 0<br>
+                        r_experimental_lag_limiter 0<br>
+                        r_dota_allow_wind_on_trees 0<br>
+                        r_dota_bloom_compute_shader 1<br>
+                        r_texturefilteringquality 0<br>
+                        cl_particle_fallback_base 4<br>
+                        cl_globallight_shadow_mode 0<br>
+                        panorama_allow_transitions 0<br>
+                        cl_particle_fallback_multiplier 4<br>
+                        cl_particle_sim_fallback_base_multiplier 5<br>
+                        cl_particle_sim_fallback_threshold_ms 2.5<br>
+                        cl_aggregate_particles 1<br>
+                        cl_retire_low_priority_lights 1<br>
+                        csm_viewmodel_shadows 0<br>
+                        dota_allow_clientside_particles 0<br>
+                        dota_disable_particle_lights 1<br>
+                        lb_shadow_texture_height_override 128<br>
+                        lb_shadow_texture_width_override 128<br>
+                        lb_dynamic_shadow_resolution_base 128<br>
+                        lb_dynamic_shadow_resolution_delay 3<br>
+                        r_dota_spotlight_shadows_resolution 128<br>
+                        r_character_decal_resolution 256<br>
+                        r_aoproxy_cull_dist 4<br>
+                        r_aoproxy_min_dist 3<br>
+                        r_dota_shadow_ambient_light 0<br>
+                        r_dota_local_light_compute 0<br>
+                        r_light_flickering_enabled 0<br>
+                        r_particle_max_detail_level 0<br>
+                        r_particle_max_texture_layers 2<br>
+                        r_particle_cables_cast_shadows 0<br>
+                        r_dota_allow_spotlight_shadows 0<br>
+                        r_dota_allow_desaturate_layers 0<br>
+                        r_dota_color_correction 0<br>
+                        r_dota_render_2d_skybox 0<br>
+                        r_draw_selected_ring 0<br>
+                        r_depth_of_field 0<br>
+                        sc_clutter_density_full_size 0.04<br>
+                        sc_shadow_depth_bias 64<br>
+                        engine_enable_frametime_warnings 0<br>
+                        dota_defer_panorama_on_sim_ticks 0<br>
+                        con_enable 1<br>
+                        dota_unit_fly_particle 0<br>
+                        dota_sf_hud_disable_fade 1<br>
+                        dota_building_destruction_effects 0<br>
+                        r_decal_cullsize 0<br>
+                        r_dynamiclighting 0<br>
+                        r_dota_disable_weather_particles 1<br>
+                        r_renderoverlayfragment 0<br>
+                        dota_hero_auto_graball 1<br>
+                        map_enable_portrait_worlds 1
+                        </span>
                         <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
                     </div>
-                    <div style="margin-top: 15px;">
-                        <b>3. Как заставить игру читать файл:</b><br>
-                        Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span><br>
-                        Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
-                    </div>
+                    <b>3. Как заставить игру читать файл:</b><br>
+                    Добавь в параметры запуска Steam команду: <span class="highlight">-autoexec</span><br>
+                    Или открой консоль в игре и введи: <span class="highlight">exec autoexec.cfg</span>
                 </div>
             </div>
         </div>
@@ -400,20 +458,15 @@
     </div>
 
     <script>
-        // Обновленная функция: теперь принимает event и element
         function toggleCard(event, element) {
-            // Если кликнули на раскрытую часть (текст, блок кода) или на кнопку "Копировать", ничего не делаем
             if (event.target.closest('.card-dropdown') || event.target.classList.contains('copy-btn')) {
                 return;
             }
             element.classList.toggle('open');
         }
 
-        // Функция для копирования текста из блока
         function copyCode(event) {
-            event.stopPropagation(); // Чтобы не закрывать карточку при клике на кнопку
-            
-            // Собираем текст из соседнего span
+            event.stopPropagation();
             const codeBox = event.target.parentElement;
             const codeSpan = codeBox.querySelector('span');
             const textToCopy = codeSpan.innerText;
