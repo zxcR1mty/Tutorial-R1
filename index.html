@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -34,63 +33,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 60px;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-            z-index: 100;
-        }
-
-        .nav-logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-telegram {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .nav-telegram:hover {
-            border-color: var(--border-hover);
-            color: var(--text-primary);
+            padding-top: 30px;
         }
 
         /* ===== HERO ===== */
@@ -99,7 +42,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px 60px;
+            padding: 40px 20px 20px;
             text-align: center;
             position: relative;
         }
@@ -107,7 +50,7 @@
         .hero-logo-img {
             width: 320px;
             max-width: 80vw;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.15));
         }
 
@@ -116,34 +59,8 @@
             font-size: 48px;
             font-weight: 700;
             letter-spacing: 24px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             color: var(--text-primary);
-        }
-
-        .hero-subtitle {
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-        }
-
-        .hero-tags {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .hero-tags .dot {
-            width: 4px;
-            height: 4px;
-            background: var(--text-muted);
-            border-radius: 50%;
         }
 
         /* ===== DIVIDER ===== */
@@ -288,35 +205,13 @@
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 3px;
+            color: var(--text-primary);
         }
 
         .footer-copy {
             font-size: 11px;
             color: var(--text-muted);
             letter-spacing: 1px;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 12px;
-        }
-
-        .footer-socials a {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-socials a:hover {
-            border-color: var(--border-hover);
-            color: var(--text-primary);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -327,22 +222,9 @@
         }
 
         @media (max-width: 768px) {
-            .navbar {
-                padding: 16px 24px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
             .hero-title {
                 font-size: 28px;
                 letter-spacing: 12px;
-            }
-
-            .hero-subtitle {
-                font-size: 11px;
-                letter-spacing: 4px;
             }
 
             .cards-section {
@@ -370,11 +252,6 @@
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-
-            .hero-tags {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
         }
 
         /* ===== ANIMATIONS ===== */
@@ -399,42 +276,19 @@
         .card:nth-child(3) { animation-delay: 0.15s; }
         .card:nth-child(4) { animation-delay: 0.2s; }
         .card:nth-child(5) { animation-delay: 0.25s; }
+        .card:nth-child(6) { animation-delay: 0.30s; }
+        .card:nth-child(7) { animation-delay: 0.35s; }
+        .card:nth-child(8) { animation-delay: 0.40s; }
+        .card:nth-child(9) { animation-delay: 0.45s; }
+        .card:nth-child(10) { animation-delay: 0.50s; }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-logo">R1</div>
-        <ul class="nav-links">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Гайды</a></li>
-            <li><a href="#">Инструменты</a></li>
-            <li><a href="#">Telegram</a></li>
-            <li><a href="#">GitHub</a></li>
-        </ul>
-        <a href="#" class="nav-telegram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-        </a>
-    </nav>
-
     <!-- HERO -->
     <section class="hero">
         <img src="fon.png" alt="R1 Logo" class="hero-logo-img">
-        <h1 class="hero-title"></h1>
-        <p class="hero-subtitle">Performance Optimization</p>
-        <div class="hero-tags">
-            <span>Windows 11</span>
-            <span class="dot"></span>
-            <span>NVIDIA</span>
-            <span class="dot"></span>
-            <span>Games</span>
-            <span class="dot"></span>
-            <span>Apps</span>
-        </div>
+        <h1 class="hero-title">R1</h1>
     </section>
 
     <!-- GAMES SECTION -->
@@ -613,22 +467,9 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="footer-logo">XYI </div>
-        <div class="footer-copy"> XZ VDRYK POMOJET</div>
-        <div class="footer-socials">
-            <a href="#">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-            </a>
-            <a href="#">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-            </a>
-        </div>
+        <div class="footer-logo">R1</div>
+        <div class="footer-copy">© 2024 R1 Optimization. Все права защищены.</div>
     </footer>
 
 </body>
-</html>'''
+</html>
