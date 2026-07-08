@@ -80,9 +80,11 @@
         }
         .header-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ===== ЗАГОЛОВОК СЕКЦИИ ===== */
+        /* ===== ЗАГОЛОВОК СЕКЦИИ (УБРАН ФИЛЬТР) ===== */
         .section-hero {
-            display: flex; justify-content: space-between; align-items: flex-end;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             margin-bottom: 30px;
         }
         .section-hero h1 {
@@ -90,12 +92,6 @@
             font-size: 32px; letter-spacing: 2px; margin-bottom: 6px;
         }
         .section-hero p { color: var(--text-secondary); font-size: 14px; }
-        .filter-btn {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            padding: 8px 16px; border-radius: 8px; color: var(--text-secondary);
-            font-size: 12px; cursor: pointer; transition: 0.3s;
-        }
-        .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
 
         /* ===== ОБНОВЛЕННЫЙ СПИСОК (С НУМЕРАЦИЕЙ 01, 02, 03) ===== */
         .cards-list {
@@ -117,16 +113,14 @@
         }
         .card:hover { border-color: var(--border-hover); }
 
-        /* Внутренняя структура: слева номер, справа текст */
         .card-header {
             display: flex;
             width: 100%;
             padding: 0;
         }
 
-        /* Левая колонка с цифрами */
         .card-number-col {
-            flex: 0 0 160px; /* Жесткая ширина колонки */
+            flex: 0 0 160px;
             min-width: 120px;
             padding: 24px 10px 20px;
             display: flex;
@@ -152,7 +146,6 @@
             line-height: 1;
         }
 
-        /* Правая колонка с контентом */
         .card-content-col {
             flex: 1;
             padding: 24px 24px 20px 24px;
@@ -173,7 +166,6 @@
             line-height: 1.5;
         }
 
-        /* Подвал карточки (статус и стрелка) */
         .card-footer {
             display: flex;
             justify-content: space-between;
@@ -198,7 +190,6 @@
             font-size: 18px;
         }
 
-        /* Скрытый контент */
         .card-dropdown {
             max-height: 0;
             overflow: hidden;
@@ -246,14 +237,11 @@
             border-top-color: var(--border-color);
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 900px) {
             .page-header { flex-wrap: wrap; gap: 10px; justify-content: center; }
             .header-title { order: -1; width: 100%; text-align: center; margin-bottom: 10px; }
             .section-hero { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .card-number-col {
-                flex: 0 0 100px; /* Уменьшаем колонку на планшете */
-            }
+            .card-number-col { flex: 0 0 100px; }
             .card-label-large { font-size: 24px; }
         }
 
@@ -262,7 +250,6 @@
             .header-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; }
             .search-box input { width: 100px; }
             
-            /* На телефоне колонка с цифрами переносится наверх */
             .card-header { flex-direction: column; }
             .card-number-col {
                 flex: auto;
@@ -299,7 +286,6 @@
             <h1>Оптимизация</h1>
             <p>Гайды по настройке Dota 2 для максимальной производительности</p>
         </div>
-        <div class="filter-btn"><i class="fas fa-filter" style="margin-right: 6px;"></i>Фильтр</div>
     </div>
 
     <div class="cards-list">
