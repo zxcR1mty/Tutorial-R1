@@ -198,6 +198,27 @@
             line-height: 1.5;
         }
 
+        .tab-switcher {
+            display: flex; gap: 10px; margin-bottom: 28px;
+        }
+        .tab-btn {
+            font-family: var(--font-display);
+            font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+            color: var(--text-secondary); background: var(--bg-card);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            padding: 10px 22px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .tab-btn:hover { color: var(--text-primary); border-color: var(--border-hover); }
+        .tab-btn.active {
+            color: var(--text-primary); border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 0 16px rgba(255,255,255,0.08);
+        }
+        .empty-state {
+            padding: 60px 20px; text-align: center;
+            color: var(--text-muted); font-size: 14px;
+            border: 1px dashed var(--border-color); border-radius: 12px;
+        }
+
         .card-footer {
             display: flex;
             justify-content: flex-end;
@@ -332,12 +353,17 @@
 
     <div class="section-hero">
         <div>
-            <h1>Оптимизация</h1>
-            <p>Гайды по настройке Dota 2 для максимальной производительности</p>
+            <h1 id="hero-title">Оптимизация</h1>
+            <p id="hero-subtitle">Гайды по настройке Dota 2 для максимальной производительности</p>
         </div>
     </div>
 
-    <div class="cards-list">
+    <div class="tab-switcher">
+        <button class="tab-btn active" onclick="switchTab('optimization', this)">Оптимизация</button>
+        <button class="tab-btn" onclick="switchTab('other', this)">Другое</button>
+    </div>
+
+    <div class="cards-list tab-panel active" id="panel-optimization">
 
         <!-- ===== 01 GAME: Оптимизация игры ===== -->
         <div class="card" onclick="toggleCard(event, this)">
@@ -446,7 +472,208 @@
 
     </div>
 
+    <div class="cards-list tab-panel" id="panel-other" style="display:none;">
+
+        <!-- ===== 01: Денай правым кликом ===== -->
+        <div class="card" onclick="toggleCard(event, this)">
+            <div class="card-header">
+                <div class="card-number-col">
+                    <div class="card-number-small">01</div>
+                    <div class="card-label-large" style="font-size: 18px;">DENY</div>
+                </div>
+                <div class="card-content-col">
+                    <h3>Денай крипов правым кликом</h3>
+                    <p>Убирает необходимость зажимать force-attack — денай крипа можно сделать обычным правым кликом.</p>
+                    <div class="card-footer">
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <p style="margin-bottom: 15px;">Вбей в консоль или добавь в <span class="highlight">autoexec.cfg</span>:</p>
+                    <div class="code-box">
+                        <span>dota_force_right_click_attack 1</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 02: Размер рун на мини-карте ===== -->
+        <div class="card" onclick="toggleCard(event, this)">
+            <div class="card-header">
+                <div class="card-number-col">
+                    <div class="card-number-small">02</div>
+                    <div class="card-label-large" style="font-size: 16px;">RUNE</div>
+                </div>
+                <div class="card-content-col">
+                    <h3>Размер рун на мини-карте</h3>
+                    <p>Увеличивает иконки рун на мини-карте — проще заметить их появление боковым зрением, не всматриваясь.</p>
+                    <div class="card-footer">
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <p style="margin-bottom: 15px;">Стандартное значение небольшое (в районе 500). Пример увеличенного размера:</p>
+                    <div class="code-box">
+                        <span>dota_minimap_rune_size 750</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                    <div style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
+                        Можешь подставить своё число вместо 750 — чем больше, тем крупнее иконки рун.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 03: Мгновенное обновление HP-бара ===== -->
+        <div class="card" onclick="toggleCard(event, this)">
+            <div class="card-header">
+                <div class="card-number-col">
+                    <div class="card-number-small">03</div>
+                    <div class="card-label-large" style="font-size: 16px;">HP BAR</div>
+                </div>
+                <div class="card-content-col">
+                    <h3>Мгновенное обновление HP-бара</h3>
+                    <p>Убирает плавное "доедание" полоски здоровья после урона — бар обновляется сразу, без задержки.</p>
+                    <div class="card-footer">
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <p style="margin-bottom: 15px;">Вбей в консоль или добавь в <span class="highlight">autoexec.cfg</span>:</p>
+                    <div class="code-box">
+                        <span>dota_health_hurt_decay_time_max 0</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 04: Цвета союзников и врагов (с превью) ===== -->
+        <div class="card" onclick="toggleCard(event, this)">
+            <div class="card-header">
+                <div class="card-number-col">
+                    <div class="card-number-small">04</div>
+                    <div class="card-label-large" style="font-size: 16px;">COLOR</div>
+                </div>
+                <div class="card-content-col">
+                    <h3>Цвета союзников и врагов</h3>
+                    <p>Свой RGB-цвет для команд — юниты, статы и хп-бары перекрашиваются под выбранный цвет.</p>
+                    <div class="card-footer">
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content" onclick="event.stopPropagation()">
+                    <p style="margin-bottom: 15px;">Подвигай ползунки — квадраты покажут итоговый цвет, а команды ниже подстроятся сами:</p>
+
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+                        <div style="flex: 1; min-width: 220px;">
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                                <div id="swatch-friendly" style="width:44px; height:44px; border-radius:8px; border:1px solid var(--border-color); background: rgb(0,255,0);"></div>
+                                <b>Союзники</b>
+                            </div>
+                            <label style="font-size:12px; color: var(--text-muted);">R <input type="range" min="0" max="255" value="0" id="fr" oninput="updateColorPreview()" style="width:100%;"></label>
+                            <label style="font-size:12px; color: var(--text-muted);">G <input type="range" min="0" max="255" value="255" id="fg" oninput="updateColorPreview()" style="width:100%;"></label>
+                            <label style="font-size:12px; color: var(--text-muted);">B <input type="range" min="0" max="255" value="0" id="fb" oninput="updateColorPreview()" style="width:100%;"></label>
+                        </div>
+                        <div style="flex: 1; min-width: 220px;">
+                            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                                <div id="swatch-enemy" style="width:44px; height:44px; border-radius:8px; border:1px solid var(--border-color); background: rgb(255,0,0);"></div>
+                                <b>Враги</b>
+                            </div>
+                            <label style="font-size:12px; color: var(--text-muted);">R <input type="range" min="0" max="255" value="255" id="er" oninput="updateColorPreview()" style="width:100%;"></label>
+                            <label style="font-size:12px; color: var(--text-muted);">G <input type="range" min="0" max="255" value="0" id="eg" oninput="updateColorPreview()" style="width:100%;"></label>
+                            <label style="font-size:12px; color: var(--text-muted);">B <input type="range" min="0" max="255" value="0" id="eb" oninput="updateColorPreview()" style="width:100%;"></label>
+                        </div>
+                    </div>
+
+                    <div class="code-box" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                        <span id="color-commands" style="white-space: pre-line; text-align: left;">dota_friendly_color_r 0
+dota_friendly_color_g 255
+dota_friendly_color_b 0
+dota_enemy_color_r 255
+dota_enemy_color_g 0
+dota_enemy_color_b 0</span>
+                        <button class="copy-btn" onclick="copyCode(event)" style="align-self: flex-end;">Копировать</button>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 13px; color: var(--text-muted);">
+                        Цвет применится только если стоит <span class="highlight">dota_unit_use_player_color 0</span> (цвет по команде, а не по игроку).
+                    </div>
+                    <div style="margin-top: 10px; font-size: 13px; color: var(--text-muted);">
+                        Если отдельные команды (<span class="highlight">_r</span>/<span class="highlight">_g</span>/<span class="highlight">_b</span>) не сработали — пиши цвет одной строкой: <span class="highlight">dota_friendly_color x x x</span> и <span class="highlight">dota_enemy_color x x x</span>, где вместо каждого <span class="highlight">x</span> — своё число от 0 до 255.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 05: Размер крипов на мини-карте ===== -->
+        <div class="card" onclick="toggleCard(event, this)">
+            <div class="card-header">
+                <div class="card-number-col">
+                    <div class="card-number-small">05</div>
+                    <div class="card-label-large" style="font-size: 16px;">CREEP</div>
+                </div>
+                <div class="card-content-col">
+                    <h3>Размер крипов на мини-карте</h3>
+                    <p>Увеличивает иконки крипов на мини-карте — проще отследить крипволны и понять где сейчас идёт линия.</p>
+                    <div class="card-footer">
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-dropdown">
+                <div class="card-dropdown-content">
+                    <p style="margin-bottom: 15px;">
+                        Важно: команда называется не "creep_size", а <span class="highlight">creep_scale</span> — это множитель размера, а не пиксели. По умолчанию — <span class="highlight">1</span>.
+                    </p>
+                    <div class="code-box">
+                        <span>dota_minimap_creep_scale 1.3</span>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
+                    </div>
+                    <div style="margin-top: 15px; font-size: 13px; color: var(--text-muted);">
+                        1.3 — крипы на 30% крупнее обычного. Можешь подставить своё значение, например 1.5 или 2.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <script>
+        function switchTab(tab, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-optimization').style.display = tab === 'optimization' ? '' : 'none';
+            document.getElementById('panel-other').style.display = tab === 'other' ? '' : 'none';
+            document.getElementById('hero-title').innerText = tab === 'optimization' ? 'Оптимизация' : 'Другое';
+            document.getElementById('hero-subtitle').innerText = tab === 'optimization'
+                ? 'Гайды по настройке Dota 2 для максимальной производительности'
+                : 'Фишки и трюки, которые не влезли в оптимизацию';
+        }
+
+        function updateColorPreview() {
+            const fr = document.getElementById('fr').value;
+            const fg = document.getElementById('fg').value;
+            const fb = document.getElementById('fb').value;
+            const er = document.getElementById('er').value;
+            const eg = document.getElementById('eg').value;
+            const eb = document.getElementById('eb').value;
+
+            document.getElementById('swatch-friendly').style.background = `rgb(${fr},${fg},${fb})`;
+            document.getElementById('swatch-enemy').style.background = `rgb(${er},${eg},${eb})`;
+
+            document.getElementById('color-commands').innerText =
+                `dota_friendly_color_r ${fr}\ndota_friendly_color_g ${fg}\ndota_friendly_color_b ${fb}\ndota_enemy_color_r ${er}\ndota_enemy_color_g ${eg}\ndota_enemy_color_b ${eb}`;
+        }
+
         function toggleCard(event, element) {
             if (event.target.closest('.card-dropdown') || event.target.classList.contains('copy-btn')) {
                 return;
