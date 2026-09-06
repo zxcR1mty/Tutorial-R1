@@ -80,7 +80,7 @@
         }
         .header-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* ===== ЗАГОЛОВОК СЕКЦИИ (УБРАН ФИЛЬТР) ===== */
+        /* ===== ЗАГОЛОВОК СЕКЦИИ ===== */
         .section-hero {
             display: flex;
             flex-direction: column;
@@ -93,7 +93,7 @@
         }
         .section-hero p { color: var(--text-secondary); font-size: 14px; }
 
-        /* ===== ОБНОВЛЕННЫЙ СПИСОК (С НУМЕРАЦИЕЙ 01, 02, 03) ===== */
+        /* ===== СПИСОК КАРТОЧЕК ===== */
         .cards-list {
             display: flex;
             flex-direction: column;
@@ -137,10 +137,9 @@
             letter-spacing: 2px;
         }
         
-        /* ===== УМЕНЬШИЛИ РАЗМЕР ИКОНОК ===== */
         .card-label-large {
             font-family: var(--font-display);
-            font-size: 28px; /* Было 32px, уменьшили до 28px */
+            font-size: 28px;
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: 2px;
@@ -231,6 +230,31 @@
             box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
 
+        .code-box {
+            background: #0e0e0e;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .copy-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         .card.open { border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(231, 76, 60, 0.15); }
         .card.open .card-footer .action-icon { transform: rotate(180deg); color: var(--accent); }
         .card.open .card-dropdown {
@@ -244,7 +268,7 @@
             .header-title { order: -1; width: 100%; text-align: center; margin-bottom: 10px; }
             .section-hero { flex-direction: column; align-items: flex-start; gap: 10px; }
             .card-number-col { flex: 0 0 100px; }
-            .card-label-large { font-size: 20px; } /* Было 24px */
+            .card-label-large { font-size: 20px; }
         }
 
         @media (max-width: 700px) {
@@ -264,7 +288,7 @@
                 justify-content: flex-start;
             }
             .card-number-small { font-size: 14px; margin: 0; }
-            .card-label-large { font-size: 18px; } /* Было 20px */
+            .card-label-large { font-size: 18px; }
         }
     </style>
 </head>
@@ -311,13 +335,17 @@
             <div class="card-dropdown">
                 <div class="card-dropdown-content">
                     <p style="margin-bottom: 15px;">
-                        <span class="highlight">Золотая середина:</span> Выкручивать всё на максимум — для слабых ПК, а ставить на минимум — жертвовать глазами. 
-                        <br>Вот максимально человечный пресет, который не превратит твой экран в слайд-шоу, а врагов — в пиксели.
+                        Данный пресет не является универсальным, но подходит многим пользователям.
                     </p>
 
                     <div style="background: #0f0f0f; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; margin-bottom: 20px; text-align: center;">
                         <img src="dota_settings.jpg" alt="Настройки Dota 2" style="max-width: 100%; height: auto; border-radius: 4px;">
-                        <div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">Идеальный баланс картинки и FPS для 90% игроков.</div>
+                        <div style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">Пример настроек для баланса картинки и FPS.</div>
+                    </div>
+
+                    <div style="background: rgba(231, 76, 60, 0.05); border-left: 3px solid var(--accent); padding: 12px 16px; margin: 15px 0; border-radius: 0 6px 6px 0;">
+                        <strong style="color: var(--text-primary);">💡 Если у тебя AMD:</strong><br>
+                        <span style="color: var(--text-secondary);">Попробуй включить Vulkan и не меняй его 2-3 дня, пока шейдеры скомпилируются.</span>
                     </div>
 
                     <b>Шутка от R1:</b><br>
@@ -328,9 +356,9 @@
                     </span>
                     <br><br>
                     <b>На всякий случай, команда для консоли:</b>
-                    <div class="code-box" style="background: #0e0e0e; border: 1px solid var(--border-color); padding: 15px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="code-box">
                         <span>fps_max 0</span>
-                        <button class="copy-btn" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; cursor: pointer; font-size: 11px; transition: 0.2s; text-transform: uppercase;" onclick="copyCode(event)">Копировать</button>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
                     </div>
                 </div>
             </div>
@@ -357,9 +385,9 @@
                     <b>Как добавить параметры запуска в Steam:</b><br>
                     Зайди в библиотеку Steam -> ПКМ по Dota 2 -> Свойства -> <b>"Параметры запуска"</b>.<br>
                     Вставь туда эту строку:
-                    <div class="code-box" style="background: #0e0e0e; border: 1px solid var(--border-color); padding: 15px; margin: 15px 0; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="code-box">
                         <span>+exec autoexec.cfg -language russian -novr -dx11 -nohltv -noaafonts -processheap -noborder -novid -console -map dota -prewarm</span>
-                        <button class="copy-btn" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 4px 12px; cursor: pointer; font-size: 11px; transition: 0.2s; text-transform: uppercase;" onclick="copyCode(event)">Копировать</button>
+                        <button class="copy-btn" onclick="copyCode(event)">Копировать</button>
                     </div>
                     <div style="margin-top: 15px;">
                         <b>Ключевые команды:</b><br>
