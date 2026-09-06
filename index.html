@@ -7,23 +7,321 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #050505;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --border-color: #3a3a3a;
+            --border-hover: #6a6a6a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --accent: #c0c0c0;
+            --accent-glow: rgba(192, 192, 192, 0.1);
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Orbitron', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: url('pon.png');
+            background-size: cover; background-position: center;
+            background-attachment: fixed;
+            padding-top: 30px;
+        }
+
+        /* ===== ШАПКА ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            position: relative;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.02);
+            text-transform: uppercase;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        .nav-link.telegram:hover {
+            border-color: #0088cc;
+            box-shadow: 0 0 25px rgba(0, 136, 204, 0.15);
+        }
+
+        .nav-link.vk:hover {
+            border-color: #4c75a3;
+            box-shadow: 0 0 25px rgba(76, 117, 163, 0.15);
+        }
+
+        .nav-link.discord:hover {
+            border-color: #5865f2;
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.15);
+        }
+
+        /* ===== ВЫПАДАЮЩЕЕ МЕНЮ DISCORD ===== */
+        .discord-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .discord-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 6px 0;
+            min-width: 210px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            z-index: 200;
+        }
+
+        .discord-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: var(--font-primary);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            white-space: nowrap;
+        }
+
+        .discord-dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .discord-dropdown a:hover {
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+        }
+
+        .discord-wrapper:hover .discord-dropdown {
+            display: block;
+            animation: fadeDropdown 0.25s ease;
+        }
+
+        @keyframes fadeDropdown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 20px 20px; text-align: center; position: relative;
+        }
+
+        .hero-logo-img {
+            width: 280px; max-width: 70vw; margin-bottom: 16px;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.08));
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 40px; font-weight: 700; letter-spacing: 20px; margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 13px; font-weight: 300; letter-spacing: 6px; text-transform: uppercase;
+            color: var(--text-secondary); margin-bottom: 24px;
+        }
+
+        .hero-tags {
+            display: flex; gap: 16px; align-items: center;
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hero-tags .dot { width: 4px; height: 4px; background: var(--text-muted); border-radius: 50%; }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            display: flex; align-items: center; justify-content: center;
+            gap: 20px; padding: 30px 20px; position: relative;
+        }
+
+        .section-divider::before, .section-divider::after {
+            content: ''; flex: 1; max-width: 200px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+        }
+
+        .section-divider span {
+            font-family: var(--font-display);
+            font-size: 13px; letter-spacing: 5px; text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CARDS ===== */
+        .cards-section { padding: 0 60px 60px; max-width: 1400px; margin: 0 auto; }
+
+        .cards-grid { display: grid; gap: 24px; }
+        .games-grid { grid-template-columns: repeat(3, 1fr); }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 28px 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.15s; }
+
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-icon {
+            width: 72px; height: 72px; margin: 0 auto 16px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            border-color: var(--border-hover);
+        }
+
+        .card-icon svg, .card-icon img { width: 44px; height: 44px; object-fit: contain; }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 13px; font-weight: 600; letter-spacing: 2px;
+            margin-bottom: 10px; color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 11px; line-height: 1.6; color: var(--text-secondary); letter-spacing: 0.5px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 24px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--text-primary);
+        }
+
+        .footer-copy { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) { .games-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .navbar { padding: 12px 20px; gap: 8px; }
+            .nav-link { font-size: 11px; padding: 6px 14px; letter-spacing: 1px; }
+            .discord-dropdown { min-width: 180px; }
+            .discord-dropdown a { font-size: 12px; padding: 8px 16px; }
+            .hero-title { font-size: 28px; letter-spacing: 12px; }
+            .hero-subtitle { font-size: 11px; letter-spacing: 4px; }
+            .cards-section { padding: 0 24px 40px; }
+            .cards-grid { gap: 16px; }
+            .card { padding: 20px 14px; }
+            .footer { flex-direction: column; gap: 12px; text-align: center; padding: 20px; }
+        }
+        @media (max-width: 480px) {
+            .games-grid { grid-template-columns: 1fr; }
+            .hero-tags { flex-wrap: wrap; justify-content: center; }
+            .hero-logo-img { width: 200px; }
+            .navbar { gap: 6px; }
+            .nav-link { font-size: 10px; padding: 4px 10px; letter-spacing: 0.5px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- ===== НОВАЯ ШАПКА С СОЦСЕТЯМИ ===== -->
+    <!-- ===== ШАПКА ===== -->
     <nav class="navbar">
-        <a href="https://t.me/tiredR1mty" target="_blank" class="nav-link telegram">Telegram</a>
-        <a href="https://vk.ru/r1mtyqwe" target="_blank" class="nav-link vk">ВКонтакте</a>
-        
+        <a href="https://t.me/tiredR1mty" target="_blank" class="nav-link telegram">
+            <i class="fab fa-telegram-plane" style="margin-right: 6px;"></i> Telegram
+        </a>
+        <a href="https://vk.ru/r1mtyqwe" target="_blank" class="nav-link vk">
+            <i class="fab fa-vk" style="margin-right: 6px;"></i> ВКонтакте
+        </a>
         <div class="discord-wrapper">
-            <span class="nav-link discord">Discord</span>
+            <span class="nav-link discord">
+                <i class="fab fa-discord" style="margin-right: 6px;"></i> Discord
+            </span>
             <div class="discord-dropdown">
                 <a href="https://discord.com/users/r1mty.dll" target="_blank">
-                    <span class="icon">💬</span> Личные сообщения
+                    <i class="fas fa-envelope"></i> Личные сообщения
                 </a>
                 <a href="https://discord.gg/6UknAxkWV" target="_blank">
-                    <span class="icon">🚪</span> Зайти на сервер
+                    <i class="fas fa-users"></i> Зайти на сервер
                 </a>
             </div>
         </div>
@@ -43,23 +341,27 @@
     </section>
 
     <!-- GAMES SECTION -->
-    <div class="section-divider"><span>Игры</span></div>
+    <div class="section-divider">
+        <span>Игры</span>
+    </div>
 
     <section class="cards-section">
         <div class="cards-grid games-grid">
+            <!-- Dota 2 -->
             <a href="dota.html" style="text-decoration: none; color: inherit; display: block;">
                 <div class="card">
                     <div class="card-icon">
-                        <img src="dota.jpg" alt="Dota 2 Icon" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;span style=&quot;font-size:24px;font-weight:700;color:#e74c3c;&quot;&gt;DOTA&lt;/span&gt;'">
+                        <img src="dota.jpg" alt="Dota 2 Icon" onerror="this.style.display='none'; this.parentElement.innerHTML='&lt;span style=&quot;font-size:22px;font-weight:700;color:#e74c3c;&quot;&gt;DOTA&lt;/span&gt;'">
                     </div>
                     <h3 class="card-title">DOTA 2</h3>
                     <p class="card-desc">Оптимизация FPS<br>и настройки</p>
                 </div>
             </a>
 
+            <!-- Valorant -->
             <div class="card">
                 <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
+                    <svg viewBox="0 0 100 100" width="44" height="44">
                         <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
                         <path d="M30 70 L50 25 L70 70 L50 55 Z" fill="#ff4655"/>
                         <path d="M35 50 L50 20 L65 50" fill="none" stroke="#ff4655" stroke-width="3"/>
@@ -69,9 +371,10 @@
                 <p class="card-desc">Настройки для<br>минимального пинга</p>
             </div>
 
+            <!-- Cyberpunk -->
             <div class="card">
                 <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
+                    <svg viewBox="0 0 100 100" width="44" height="44">
                         <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
                         <text x="50" y="45" text-anchor="middle" fill="#fcee0a" font-family="Arial" font-size="10" font-weight="bold">CYBER</text>
                         <text x="50" y="58" text-anchor="middle" fill="#fcee0a" font-family="Arial" font-size="8" font-weight="bold">PUNK</text>
@@ -84,88 +387,7 @@
         </div>
     </section>
 
-    <!-- APPS SECTION -->
-    <div class="section-divider"><span>Приложения</span></div>
-
-    <section class="cards-section">
-        <div class="cards-grid apps-grid">
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
-                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-                        <path d="M25 30 L48 27 L48 48 L25 48 Z" fill="white"/>
-                        <path d="M52 27 L75 24 L75 48 L52 48 Z" fill="white"/>
-                        <path d="M25 52 L48 52 L48 73 L25 70 Z" fill="white"/>
-                        <path d="M52 52 L75 52 L75 76 L52 73 Z" fill="white"/>
-                    </svg>
-                </div>
-                <h3 class="card-title">WINDOWS 11</h3>
-                <p class="card-desc">Оптимизация системы<br>и отключение лишнего</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
-                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-                        <path d="M30 35 Q50 20 70 35 Q75 50 65 65 Q50 75 35 65 Q25 50 30 35" fill="#76b900"/>
-                        <circle cx="50" cy="50" r="8" fill="#1a1a1a"/>
-                        <path d="M50 42 L50 58 M42 50 L58 50" stroke="#76b900" stroke-width="2"/>
-                    </svg>
-                </div>
-                <h3 class="card-title">NVIDIA CONTROL PANEL</h3>
-                <p class="card-desc">Лучшие настройки<br>для игр</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
-                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-                        <circle cx="50" cy="45" r="18" fill="none" stroke="#76b900" stroke-width="3"/>
-                        <circle cx="50" cy="45" r="8" fill="#76b900"/>
-                        <line x1="50" y1="63" x2="50" y2="75" stroke="#76b900" stroke-width="3"/>
-                        <line x1="42" y1="75" x2="58" y2="75" stroke="#76b900" stroke-width="3"/>
-                        <circle cx="65" cy="30" r="6" fill="#76b900"/>
-                    </svg>
-                </div>
-                <h3 class="card-title">NVIDIA PROFILE INSPECTOR</h3>
-                <p class="card-desc">Тонкая настройка<br>профилей</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
-                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-                        <path d="M30 30 L50 20 L70 30 L70 60 L50 70 L30 60 Z" fill="#76b900"/>
-                        <path d="M30 30 L50 40 L70 30" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-                        <path d="M50 40 L50 70" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-                    </svg>
-                </div>
-                <h3 class="card-title">NVIDIA APP</h3>
-                <p class="card-desc">Оптимизация через<br>новое приложение</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 100 100" width="48" height="48">
-                        <rect x="10" y="10" width="80" height="80" rx="4" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-                        <circle cx="50" cy="50" r="25" fill="none" stroke="#c0c0c0" stroke-width="2"/>
-                        <path d="M50 30 L55 45 L70 45 L58 55 L63 70 L50 60 L37 70 L42 55 L30 45 L45 45 Z" fill="#c0c0c0"/>
-                        <circle cx="50" cy="50" r="5" fill="#1a1a1a"/>
-                    </svg>
-                </div>
-                <h3 class="card-title">MSI AFTERBURNER</h3>
-                <p class="card-desc">Мониторинг, разгон<br>и настройки</p>
-            </div>
-        </div>
-    </section>
-
     <!-- FOOTER -->
-    <div class="footer-tagline">
-        <span class="star">✦</span>
-        <span>Максимум FPS. Минимум лагов. Полный контроль.</span>
-        <span class="star">✦</span>
-    </div>
-
     <footer class="footer">
         <div class="footer-logo">R1</div>
         <div class="footer-copy">© 2024 R1 Optimization</div>
