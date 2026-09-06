@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        @font-face {
+            font-family: 'UB Future';
+            src: url('UB-Future_Bold.otf') format('opentype');
+            font-weight: 700;
+            font-display: swap;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -24,7 +31,7 @@
             --accent: #c0c0c0;
             --accent-glow: rgba(192, 192, 192, 0.1);
             --font-primary: 'Inter', sans-serif;
-            --font-display: 'Orbitron', sans-serif;
+            --font-display: 'UB Future', 'Orbitron', sans-serif;
         }
 
         body {
@@ -57,9 +64,9 @@
         .nav-link {
             font-family: var(--font-display);
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 1.5px;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-decoration: none;
             padding: 8px 20px;
             border: 1px solid var(--border-color);
@@ -69,6 +76,7 @@
             text-transform: uppercase;
             position: relative;
             cursor: pointer;
+            text-shadow: 0 0 10px rgba(255,255,255,0.25);
         }
 
         .nav-link {
@@ -169,6 +177,7 @@
             font-family: var(--font-display);
             font-size: 40px; font-weight: 700; letter-spacing: 20px; margin-bottom: 12px;
             color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
 
         .hero-subtitle {
@@ -199,7 +208,9 @@
         .section-divider span {
             font-family: var(--font-display);
             font-size: 13px; letter-spacing: 5px; text-transform: uppercase;
-            color: var(--text-secondary);
+            color: var(--text-primary);
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(255,255,255,0.25);
         }
 
         /* ===== CARDS ===== */
@@ -262,8 +273,9 @@
 
         .card-title {
             font-family: var(--font-display);
-            font-size: 13px; font-weight: 600; letter-spacing: 2px;
+            font-size: 13px; font-weight: 700; letter-spacing: 2px;
             margin-bottom: 10px; color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .card-desc {
@@ -282,6 +294,7 @@
         .footer-logo {
             font-family: var(--font-display);
             font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .footer-copy { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
