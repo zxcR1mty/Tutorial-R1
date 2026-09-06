@@ -17,6 +17,13 @@
             font-display: swap;
         }
 
+        @font-face {
+            font-family: 'SchriftXP';
+            src: url('FE-SchriftXP-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-display: swap;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -175,7 +182,7 @@
         }
 
         .hero-title {
-            font-family: var(--font-display);
+            font-family: 'SchriftXP', var(--font-display);
             font-size: 40px; font-weight: 700; letter-spacing: 20px; margin-bottom: 12px;
             color: var(--text-primary);
             text-shadow: 0 0 20px rgba(255,255,255,0.3);
