@@ -71,11 +71,15 @@
             cursor: pointer;
         }
 
+        .nav-link {
+            box-shadow: 0 0 14px rgba(255,255,255,0.06), inset 0 0 8px rgba(255,255,255,0.02);
+        }
+
         .nav-link:hover {
             color: var(--text-primary);
             border-color: var(--border-hover);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(255,255,255,0.05);
+            box-shadow: 0 0 24px rgba(255,255,255,0.12);
         }
 
         .nav-link.telegram:hover {
@@ -157,7 +161,7 @@
 
         .hero-logo-img {
             width: 280px; max-width: 70vw; margin-bottom: 16px;
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.08));
+            filter: drop-shadow(0 0 18px rgba(255,255,255,0.25)) drop-shadow(0 0 45px rgba(255,255,255,0.12));
             z-index: 2;
         }
 
@@ -188,7 +192,8 @@
 
         .section-divider::before, .section-divider::after {
             content: ''; flex: 1; max-width: 200px; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+            box-shadow: 0 0 8px rgba(255,255,255,0.25);
         }
 
         .section-divider span {
@@ -244,11 +249,13 @@
             display: flex; align-items: center; justify-content: center;
             border-radius: 12px; background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-color);
+            box-shadow: 0 0 16px rgba(255,255,255,0.1), inset 0 0 10px rgba(255,255,255,0.03);
             transition: all 0.3s ease;
         }
 
         .card:hover .card-icon {
             border-color: var(--border-hover);
+            box-shadow: 0 0 26px rgba(255,255,255,0.2), inset 0 0 12px rgba(255,255,255,0.05);
         }
 
         .card-icon svg, .card-icon img { width: 44px; height: 44px; object-fit: contain; }
